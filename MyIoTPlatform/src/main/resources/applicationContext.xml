@@ -28,6 +28,32 @@
         <!-- 后缀 -->
         <property name="suffix" value=".html" />
     </bean>
+    <!--配置数据库连接信息   -->
+    <util:properties id="jdbc" location="classpath:db.properties"/>
+    <bean id="dbcp" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="#{jdbc.driver}"/>
+        <property name="url" value="#{jdbc.url}"/>
+        <property name="username" value="#{jdbc.user}"/>
+        <property name="password" value="#{jdbc.pwd}"/>
+    </bean>
+    <!--配置SqlSessionFactoryBean-->
+    <!--定义一些属性来指定Mybatis框架的配置信息 -->
+    <bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--数据源，注入连接信息-->
+        <property name="dataSource" ref="dbcp"/>
+        <!--额外的Mybatis配置-->
+        <property name="configLocation" value="classpath:mybatisConfig.xml"/>
+        <!--用于指定sql定义文件的位置（加classpath从src下找）-->
+        <property name="mapperLocations" value="classpath:sql/*.xml"/>
+    </bean>
+    <!--配置MapperScannerConfigurer-->
+    <!--按照指定包扫描接口，批量生成接口实现对象，id为接口名称首字母小写-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定扫描dao包下所有接口-->
+        <property name="basePackage" value="dao"/>
+        <!--注入sqlSessionFactory,自动注入-->
+        <property name="sqlSessionFactoryBeanName" value="ssf"/>
+    </bean>
 
 
 </beans>
