@@ -20,6 +20,7 @@ public class User {
     private String email;
     @ApiModelProperty(value = "年龄", name = "age", example = "11")
     private int age;
+    private int role;
 
     public int getId() {
         return id;
@@ -61,6 +62,14 @@ public class User {
         this.age = age;
     }
 
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -68,7 +77,8 @@ public class User {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", age='" + age + '\'' +
+                ", age=" + age +
+                ", role=" + role +
                 '}';
     }
 }
