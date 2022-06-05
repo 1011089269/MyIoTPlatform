@@ -1,16 +1,26 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Owner
-  Date: 2022/5/31
-  Time: 11:16
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>token demo</title>
+    <script src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+    <script type="text/javascript" src="scripts/util.js"></script>
+    <script type="text/javascript" src="scripts/interceptorManage.js"></script>
+</head>
+<body>
+    <h1>测试hello拦截器</h1>
+    <div>
+        <input type="text" id="txtHeaderContent" value="hello">
+        <br/>
+        <input type="button"
+               value="发送header带hello的HTTP API，由带Hello注解的方法接收处理"
+               onclick="onSendHttpApiWithHelloHeaderToMethodWithHelloAnnotation()"/>
+        <br/>
+        <input type="button"
+               value="发送header带hello的HTTP API，由不带Hello注解的方法接收处理"
+               onclick="onSendHttpApiWithHelloHeaderToMethodWithoutHelloAnnotation()"/>
+    </div>
+    <h1>测试用户模块</h1>
+    <input type="button" value="前往用户模块" onclick="onGotoUserModule()" />
+</body>
 </html>

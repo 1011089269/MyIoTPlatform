@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+    <script type="text/javascript" src="scripts/util.js"></script>
+    <script type="text/javascript" src="scripts/userManage.js"></script>
+</head>
+<body>
+<div>
+    用户名：<input type="text" id="txtRegisterUserName"/>
+    邮箱：<input type="email" id="txtRegisterEmail"/>
+    密码：<input type="password" id="txtRegisterPassword"/>
+    确认密码：<input type="password" id="txtRegisterConfirmPassword"/>
+    年龄：<input type="text" id="txtRegisterAge"/>
+    角色：<select id="selRegisterRole">
+        <option value="0" selected="selected">普通用户</option>
+        <option value="1">管理员</option>
+        <option value="2">开发者</option>
+    </select>
+    <input type="button" id="addUser" value="注册" onclick="onRegisterClick()"/>
+</div>
+</body>
+</html>

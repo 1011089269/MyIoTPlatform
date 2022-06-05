@@ -1,5 +1,6 @@
 package controller;
 
+import controller.interceptor.FreeToken;
 import entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +20,36 @@ import service.UserManageService;
 @RequestMapping("user")
 public class UserController {
     private final UserManageService userManageService;
-    public UserController(UserManageService userManageService) {this.userManageService = userManageService;}
+    public UserController(UserManageService userManageService) {
+        this.userManageService = userManageService;
+    }
+    @PostMapping("/login")
+    @ResponseBody
+    @FreeToken
+    public Result login(User user) {
+        return userManageService.login(user);
+    }
+
+    @PostMapping("/register")
+    @ResponseBody
+    @FreeToken
+    public Result register(User user) {
+        return userManageService.addUser(user);
+    }
+
+    @PostMapping("/login/check")
+    @ResponseBody
+    @FreeToken
+    public Result checkLogin(String tokenValue) {
+        return userManageService.checkLogin(tokenValue);
+    }
+
+    @PostMapping("/logout")
+    @ResponseBody
+    @FreeToken
+    public Result logout(String tokenValue) {
+        return userManageService.logout(tokenValue);
+    }
 
     //@RequestMapping(value="/add",method = RequestMethod.POST)
     @PostMapping("/add")
