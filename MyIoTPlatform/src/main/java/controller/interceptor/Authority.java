@@ -12,5 +12,5 @@ import static entity.Token.Type.USER;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Authority {
-    Token.Type role() default USER;
+    Token.Type role()[] default {USER};
 }

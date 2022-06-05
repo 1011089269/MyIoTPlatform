@@ -40,7 +40,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         // 操作需要的权限
-        Token.Type role = method.getAnnotation(Authority.class).role();
+        Token.Type role[] = method.getAnnotation(Authority.class).role();
 
         // 获取token
         String tokenvalue = null;
