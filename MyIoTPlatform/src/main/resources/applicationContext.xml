@@ -86,5 +86,12 @@
     <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
         <constructor-arg index="0" ref="jedisConnectionFactory"/>
     </bean>
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/**"/>
+            <bean class="controller.interceptor.TokenInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

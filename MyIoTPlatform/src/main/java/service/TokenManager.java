@@ -19,42 +19,43 @@ public class TokenManager {
 
     /**
      * 创建一个token关联指定用户（设备）
-     * @param id 指定用户（设备）的id
+     *
+     * @param id   指定用户（设备）的id
      * @param type token类型
      * @return 生成的token
      */
-//    public Token createToken(int id, Token.Type type) {
-//        Token token = new Token(id, type);
-//        redisService.set(token.getUuid(), token.getValue(),
-//                type == Token.Type.TT_DEVICE ? 3600 * 24 : 3600);
-//        return token;
-//    }
+    public Token createToken(int id, Token.Type type) {
+        Token token = new Token(type, id);
+        redisService.set(token.getUuid(), token.getValue(), 600);
+        return token;
+    }
 
     /**
-     * @see #checkToken(Token)
-     * @param id 指定用户（设备）的id
+     * @param id   指定用户（设备）的id
      * @param type token类型
      * @return
+     * @see #checkToken(Token)
      */
-//    public boolean checkToken(long id, Token.Type type) {
-//        return checkToken(new Token(id, type));
-//    }
+    public boolean checkToken(int id, Token.Type type) {
+        return checkToken(new Token(type, id));
+    }
 
     /**
-     * @see #checkToken(Token)
      * @param tokenValue
      * @return
+     * @see #checkToken(Token)
      */
-//    public boolean checkToken(String tokenValue) {
-//        try {
-//            return checkToken(new Token(tokenValue));
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-//    }
+    public boolean checkToken(String tokenValue) {
+        try {
+            return checkToken(new Token(tokenValue));
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     /**
      * 检查token是否有效
+     *
      * @param token 用户端发送来的token
      * @return 是否有效
      */
@@ -62,11 +63,11 @@ public class TokenManager {
         return token.getValue().equals(redisService.get(token.getUuid()));
     }
 
-    public void deleteToken(Token token) {
-        deleteToken(token.getUuid());
+    public void deleteToken(String tokenValue) {
+        deleteToken(new Token(tokenValue));
     }
 
-    public void deleteToken(String uuid) {
-        redisService.delete(uuid);
+    public void deleteToken(Token token) {
+        redisService.delete(token.getUuid());
     }
 }
