@@ -13,8 +13,6 @@ public class Device {
     private String name;
     @ApiModelProperty(value = "更新时间", example = "yyyy-mm-dd hh:mm:ss")
     private Date time;
-    @ApiModelProperty(value = "在线/离线", name = "online", example = "1/0")
-    private int online;
     @ApiModelProperty(value = "数据类型", name = "dataType", example = "1/2/3")
     private int dataType;
 
@@ -42,13 +40,6 @@ public class Device {
         this.time = time;
     }
 
-    public int getOnline() {
-        return online;
-    }
-
-    public void setOnline(int online) {
-        this.online = online;
-    }
 
     public int getDataType() {
         return dataType;
@@ -64,7 +55,6 @@ public class Device {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", time=" + time +
-                ", online=" + online +
                 ", dataType=" + dataType +
                 '}';
     }
