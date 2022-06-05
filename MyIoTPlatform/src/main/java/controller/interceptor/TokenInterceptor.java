@@ -2,6 +2,7 @@ package controller.interceptor;
 
 import entity.Token;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
-import java.net.CookieHandler;
 
 /**
  * @author d'f'g
@@ -42,33 +42,51 @@ public class TokenInterceptor implements HandlerInterceptor {
         // 操作需要的权限
         Token.Type role[] = method.getAnnotation(Authority.class).role();
 
-        // 获取token
-        String tokenvalue = null;
-        Cookie[] cookieArr = request.getCookies();
-        if (cookieArr != null && cookieArr.length > 0) {
-            for (Cookie cookie : cookieArr) {
-                if ("tokenValue".equals(cookie.getName())) {
-                    tokenvalue = cookie.getValue();
-                    break;
+        // 检查token
+        String tokenValue = request.getHeader("tokenValue");
+        if (StringUtils.isNotEmpty(tokenValue) && !tokenValue.equals("null")) {
+            Token token = new Token(tokenValue);
+            if (!tokenManager.checkToken(token)) {
+                for (int i = 0; i < role.length; i++) {
+                    if (token.getType() == role[i]) {
+                        return true;
+                    }
                 }
+            } else {
+                showInterceptionInfo(response, -1, "登录信息失效，请重新登录");
+                return false;
             }
-        }
-        if (tokenvalue == null) {
+        } else {
             showInterceptionInfo(response, -1, "请先登录");
             return false;
         }
+//        // 获取token
+//        String tokenvalue = null;
+//        Cookie[] cookieArr = request.getCookies();
+//        if (cookieArr != null && cookieArr.length > 0) {
+//            for (Cookie cookie : cookieArr) {
+//                if ("tokenValue".equals(cookie.getName())) {
+//                    tokenvalue = cookie.getValue();
+//                    break;
+//                }
+//            }
+//        }
+//        if (tokenvalue == null) {
+//            showInterceptionInfo(response, -1, "请先登录");
+//            return false;
+//        }
 
-        // 判断是否存在该token
-        Token token = new Token(tokenvalue);
-        if (!tokenManager.checkToken(token)) {
-            showInterceptionInfo(response, -1, "请先登录");
-            return false;
-        }
+//        // 判断是否存在该token
+//        Token token = new Token(tokenvalue);
+//        if (!tokenManager.checkToken(token)) {
+//            showInterceptionInfo(response, -1, "请先登录");
+//            return false;
+//        }
 
-        // 判断是否有操作权限
-        if (token.getType() == role) {
-            return true;
-        }
+//        // 判断是否有操作权限
+//        if (token.getType() == role) {
+//            return true;
+//        }
 
         showInterceptionInfo(response, -2, "您当前没有使用该功能的权限");
         return false;
