@@ -36,9 +36,9 @@ public class SwaggerConfig {
                 .title("对外开放接口API文档")   //大标题
                 .description("HTTP对外开放接口")  //小标题
                 .version("1.0.0")   //版本
-                .termsOfServiceUrl("http://xxx.xxx.com")    //终端服务器
+                .termsOfServiceUrl("http://localhost:8080")    //终端服务器
                 .license("LICENSE") //链接显示文字
-                .licenseUrl("http://xxx.xxx.com")   //网站链接
+                .licenseUrl("http://localhost:8080")   //网站链接
                 .build();
     }
 }

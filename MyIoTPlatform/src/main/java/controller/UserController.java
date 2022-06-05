@@ -51,4 +51,6 @@ public class UserController {
         System.out.println("获取待删除用户信息：" + user);
         return userManageService.deleteUser(user);
     }
+
+
 }

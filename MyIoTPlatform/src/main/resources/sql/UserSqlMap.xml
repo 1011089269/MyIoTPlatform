@@ -7,7 +7,7 @@
     <cache eviction="LRU" flushInterval="30000" size="512" readOnly="true"/>
     <!--    增-->
     <insert id="addUser" parameterType="entity.User" useGeneratedKeys="true" keyProperty="id">
-        insert into user (id,name,password,email,age) values(#{id},#{name},#{password},#{email},#{age})
+        insert into user (id,name,password,email,age,role) values(#{id},#{name},#{password},#{email},#{age},#{role})
     </insert>
     <!--    查-->
     <select id="findUser" resultType="entity.User" parameterType="entity.User">
@@ -63,5 +63,4 @@
             </if>
         </trim>
     </delete>
-
 </mapper>
