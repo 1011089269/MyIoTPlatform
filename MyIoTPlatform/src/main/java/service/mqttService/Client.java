@@ -59,6 +59,19 @@ public class Client {
         mqttClient.connect(options);
         System.out.println("connect success");
     }
+
+    public void subscribe(String topic, int qos) throws MqttException {
+        mqttClient.subscribe(topic, qos);
+    }
+    public void publish(String topic, String message) throws MqttException{
+        MqttTopic mqttTopic = mqttClient.getTopic(topic);
+        MqttMessage mqttMessage = new MqttMessage();
+        mqttMessage.setPayload(message.getBytes());
+        // mqtt.fx中使用GBK加解码，若与其联用时想要避免中文乱码需使用以下方法
+        mqttMessage.setPayload(message.getBytes(Charset.forName("GBK")));
+        MqttDeliveryToken token = mqttTopic.publish(mqttMessage);
+        token.waitForCompletion();
+    }
 }
 
 
