@@ -1,21 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <title>用户中心</title>
-    <script src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="scripts/util.js"></script>
     <script type="text/javascript" src="scripts/userManage.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/base.css">
 </head>
+
 <body onload="onLoadUserCenter()">
-    <h1>登录状态</h1>
-    <label id="lblLoginState"></label>
-    <input type="button" id="btnLoginAction" onclick="onLoginActionClick()">
-    <h1>普通用户权限</h1>
-    <input type="button" id="btnModifyUserInfo" value="修改个人信息" onclick="onModifyUserInfoClick()"/>
-    <h1>管理员权限</h1>
-    <input type="button" id="btnManageUser" value="用户管理" onclick="onManageUserClick()"/>
-    <h1>开发者权限</h1>
-    <input type="button" id="btnUpdateVersion" value="软件升级" onclick="onVersionUpdateClick()"/>
+    <div class="Flex" id="container">
+        <div class="Row Flex">
+            <div class="Card"
+                style="max-width: 20px; height: 70px; background: url(/images/cloudPlatformIcon.jpeg);    background-size: cover;">
+            </div>
+            <div class="Card">
+                <span class="CardTitle">用户中心 | </span>
+                <span id="lblLoginState"></span>
+                <button id="btnLoginAction" class="RowRight" onclick="onLoginActionClick()">双击退出登录</button>
+            </div>
+        </div>
+        <div class="Row Flex">
+            <div class="FlexColumn" style="min-width: 200px;     margin-right: 20px;">
+                <div class="MenuButton Card">
+                    <span class="CardTitle">设备管理</span>
+                </div>
+
+                <!-- <div class="MenuButton Card">
+                    <span class="Bold">设备管理</span>
+                </div> -->
+            </div>
+
+            <div class="Card">
+                <div class="CardTitleInner">基本信息</div>
+                <hr class="hr">
+                <div class="Row FlexColumn">
+                    <div>
+                        <span class="inputSpan">用户名</span>
+                        <input id="txtLoginName" class="input RowRight CardInput" placeholder="请在此输入用户名" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">邮箱</span>
+                        <input id="txtLoginName" class="input RowRight CardInput" placeholder="请在此输入邮箱" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">年龄</span>
+                        <input id="txtLoginName" class="input RowRight CardInput" placeholder="请在此输入年龄" />
+                    </div>
+                    <button id="btnLoginAction" class="RowLeft Fill" style="margin-top: 12px;"
+                        onclick="onLoginActionClick()">更新</button>
+                </div>
+
+                <div class="CardTitleInner">安全设置</div>
+                <hr class="hr">
+                <div class="Row Flex">
+                    <button id="btnLoginAction" class="RowLeft Fill" style="margin-top: 12px;"
+                        onclick="onLoginActionClick()">修改密码</button>
+                    <button id="btnLoginAction" class="RowLeft Fill" style="margin-top: 12px;"
+                        onclick="onLoginActionClick()">找回密码</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="Row Flex">
+            <div class="Card">
+                <span class="CardTitle">普通用户权限</span>
+                <button id="btnModifyUserInfo" class="RowRight" onclick="onModifyUserInfoClick()">修改个人信息</button>
+            </div>
+            <div class="Card">
+                <span class="CardTitle">管理员权限</span>
+                <button id="btnModifyUserInfo" class="RowRight" onclick="onManageUserClick()">用户管理</button>
+            </div>
+            <div class="Card">
+                <span class="CardTitle">开发者权限</span>
+                <button id="btnUpdateVersion" class="RowRight" onclick="onVersionUpdateClick()">软件升级</button>
+            </div>
+        </div>
+    </div>
 </body>
+
+<style>
+    #container {
+        padding: 20px;
+        flex-direction: column;
+    }
+</style>
+
 </html>

@@ -21,7 +21,7 @@ function onAddUser() {
         data: { "name": userName, "password": password, "email": email, "age": age },
         dataType: "json",
         success: function (result) {
-            alert(result.msg);
+            alertBlur(result.msg);
             findAllUser();
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -89,7 +89,7 @@ function onUpdateUser() {
     const password = $("#txtUpdatePassword").val();
     const age = Number($("#txtUpdateAge").val());
     if (id && !(userName || password || email || age)) {
-        alert("请保证更新参数不为空");
+        alertBlur("请保证更新参数不为空");
         return;
     }
     $.ajax({
@@ -98,7 +98,7 @@ function onUpdateUser() {
         data: { "id": id, "name": userName, "password": password, "email": email, "age": age },
         dataType: "json",
         success: function (result) {
-            alert(result.msg);
+            alertBlur(result.msg);
             findAllUser();
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -118,7 +118,7 @@ function onDeleteUser() {
         data: { "id": id, "name": userName, "email": email, "age": age },
         dataType: "json",
         success: function (result) {
-            alert(result.msg);
+            alertBlur(result.msg);
             findAllUser();
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -129,13 +129,13 @@ function onDeleteUser() {
 function onLoginClick() {
     const userName = $("#txtLoginName").val();
     if (!userName) {
-        alert("用户名不得为空");
+        alertBlur("用户名不得为空");
         return;
     }
 
     const password = $("#txtLoginPassword").val();
     if (!password) {
-        alert("密码不得为空");
+        alertBlur("密码不得为空");
         return;
     }
 
@@ -149,7 +149,7 @@ function onLoginClick() {
         },
         dataType: "json",
         success: function (result) {
-            alert(result.msg);
+            alertBlur(result.msg);
             if (result.status === 1) {
                 //跳转到注册页面
                 window.location.href = "register.html";
@@ -170,14 +170,14 @@ function onRegisterClick() {
     const url = URL_HEAD + "register";
     const userName = $("#txtRegisterUserName").val();
     if (!userName) {
-        alert("用户名不得为空");
+        alertBlur("用户名不得为空");
         return;
     }
 
     const registerPassword = $("#txtRegisterPassword").val();
     const confirmPassword = $("#txtRegisterConfirmPassword").val();
     if (registerPassword !== confirmPassword) {
-        alert("两次密码输入不一致");
+        alertBlur("两次密码输入不一致");
         return;
     }
 
@@ -185,7 +185,7 @@ function onRegisterClick() {
     const age = Number($("#txtRegisterAge").val());
     const role = Number($("#selRegisterRole").val());
 
-    // alert("userName: " + userName + ", registerPassword: " + registerPassword + ", email: " + email + ", age: " + age + ", role: " + role);
+    // alertBlur("userName: " + userName + ", registerPassword: " + registerPassword + ", email: " + email + ", age: " + age + ", role: " + role);
 
     $.ajax({
         url: url,
@@ -194,7 +194,7 @@ function onRegisterClick() {
         data: { "name": userName, "password": registerPassword, "email": email, "age": age, "role": role },
         dataType: "json",
         success: function (result) {
-            alert(result.msg);
+            alertBlur(result.msg);
             if (result.status === 1) {
                 //跳转到登录页面
                 window.location.href = "login.html";
@@ -217,10 +217,12 @@ function onLoadUserCenter() {
         success: function (result) {
             $("#lblLoginState").text(result.msg);
             if (result.status === 0) {
-                $("#btnLoginAction").val("退出登录");
+                $("#btnLoginAction").text("双击退出登录");
+                console.log(1);
             } else {
                 window.localStorage.removeItem(ITEM_KEY_TOKEN_VALUE);
-                $("#btnLoginAction").val("重新登录");
+                $("#btnLoginAction").text("重新登录");
+                console.log(2);
             }
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -234,7 +236,7 @@ function onLoginActionClick() {
     if (tokenValue) {
         logout();
     } else {
-        window.location.href = "login.html";
+        window.location.href = "index.html";
     }
 }
 
@@ -258,7 +260,7 @@ function logout() {
 
 function checkResult(result) {
     if (result.msg) {
-        alert(result.msg);
+        alertBlur(result.msg);
     }
     if (result.status === -1) {
         window.location.href = "login.html";
@@ -322,4 +324,18 @@ function onVersionUpdateClick() {
             showError("版本更新异常", xhr, textStatus, errorThrown);
         }
     });
+}
+
+//跳转页面
+function jump(url) {
+    window.location.href = url;
+}
+
+//模糊背景弹窗方法
+//需要搭配 <style> body { transition: all var(--Fast) ease; } </style> 来使用
+function alertBlur(str) {
+    checkEnter = false;
+    setTimeout("document.body.style.filter = 'blur(10px)'", 0);
+    setTimeout("alert('" + str + "');", 300); //通过延时来“同时”执行第二个function，否则单击一次执行一次
+    setTimeout("document.body.style.filter = 'blur(0px)'", 300);
 }
