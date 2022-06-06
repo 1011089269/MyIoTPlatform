@@ -172,7 +172,6 @@ html {
 body {
     transition: filter var(--Fast) ease;
     background: linear-gradient(var(--Blue), var(--Blue50), transparent), url(/images/techBG1.png);
-    overflow: hidden;
     background-size: cover;
     background-attachment: fixed;
     font-family: Bahnschrift, '微软雅黑';

@@ -1,73 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta charset="UTF-8">
-    <title>SSM演示用户增删改查操作</title>
-    <link type="text/css" rel="stylesheet" href="css/style.css">
-    <script src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <title>用户管理</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="scripts/util.js"></script>
     <script type="text/javascript" src="scripts/userManage.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/base.css">
 </head>
-<body onload="onUserManageLoad();">
-<h1>添加用户</h1>
+
+<body onload="onUserManageLoad()">
+    <div class="Flex" id="container">
+        <div class="Row Flex">
+            <div class="Card"
+                style="max-width: 20px; height: 70px; background: url(/images/cloudPlatformIcon.jpeg);    background-size: cover;">
+            </div>
+            <div class="Card">
+                <span class="CardTitle">用户管理</span>
+                <button id="btnLoginAction" class="RowRight" onclick="jump('userCenter.html')">返回用户中心</button>
+            </div>
+        </div>
+        <div class="Row Flex" style="flex-wrap: wrap">
+            <!-- <div class="FlexColumn" style="min-width: 200px;     margin-right: 20px;">
+                <div class="MenuButton Card">
+                    <span class="CardTitle">设备管理</span>
+                </div> -->
+
+            <!-- <div class="MenuButton Card">
+                    <span class="Bold">设备管理</span>
+                </div> -->
+            <!-- </div> -->
+
+            <div class="Card ManageCard">
+                <div class="CardTitleInner">添加用户</div>
+                <hr class="hr">
+                <div class="Row FlexColumn">
+                    <div>
+                        <span class="inputSpan">用户名</span>
+                        <input id="txtInsertUserName" class="input RowRight CardInput" placeholder="请在此输入用户名" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">邮箱</span>
+                        <input id="txtInsertEmail" type="email" class="input RowRight CardInput"
+                            placeholder="请在此输入邮箱" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">密码</span>
+                        <input id="txtInsertPassword" type="password" class="input RowRight CardInput"
+                            placeholder="请在此输入密码" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">年龄</span>
+                        <input id="txtInsertAge" type="number" class="input RowRight CardInput" placeholder="请在此输入年龄" />
+                    </div>
+                    <button id="addUser" class="RowLeft Fill" style="margin-top: 12px;"
+                        onclick="onAddUser()">新增用户</button>
+                </div>
+            </div>
+
+            <div class="Card ManageCard">
+                <div class="CardTitleInner">删除用户</div>
+                <hr class="hr">
+                <div class="Row FlexColumn">
+                    <div>
+                        <span class="inputSpan">ID</span>
+                        <input id="txtDeleteId" type="number" class="input RowRight CardInput" placeholder="请在此输入 ID" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">账号</span>
+                        <input id="txtDeleteUserName" class="input RowRight CardInput" placeholder="请在此输入邮箱" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">邮箱</span>
+                        <input id="txtUpdateUserEmail" type="email" class="input RowRight CardInput"
+                            placeholder="请在此输入密码" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">年龄</span>
+                        <input id="txtDeleteAge" type="number" class="input RowRight CardInput" placeholder="请在此输入年龄" />
+                    </div>
+                    <button id="deleteUser" class="RowLeft Fill" style="margin-top: 12px;"
+                        onclick="onDeleteUser()">删除用户</button>
+                </div>
+            </div>
+
+            <div class="Card ManageCard">
+                <div class="CardTitleInner">修改用户</div>
+                <hr class="hr">
+                <div class="Row FlexColumn">
+                    <div>
+                        <span class="inputSpan">根据 ID</span>
+                        <input id="txtUpdateId" type="number" class="input RowRight CardInput"
+                            placeholder="请在此输入待修改用户的 ID" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">账号</span>
+                        <input id="txtUpdateUserName" class="input RowRight CardInput" placeholder="请在此输入邮箱" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">邮箱</span>
+                        <input id="txtDeleteEmail" type="email" class="input RowRight CardInput"
+                            placeholder="请在此输入密码" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">密码</span>
+                        <input id="txtUpdatePassword" type="password" class="input RowRight CardInput"
+                            placeholder="请在此输入密码" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">年龄</span>
+                        <input id="txtUpdateAge" type="number" class="input RowRight CardInput" placeholder="请在此输入年龄" />
+                    </div>
+                    <button id="updateUser" class="RowLeft Fill" style="margin-top: 12px;"
+                        onclick="onUpdateUser()">修改用户</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="Row Flex">
+            <div class="Card ManageCard">
+                <div class="CardTitleInner">查询用户</div>
+                <hr class="hr">
+                <div class="Row FlexColumn">
+                    <div>
+                        <span class="inputSpan"> ID</span>
+                        <input id="txtFindId" type="number" class="input RowRight CardInput" placeholder="请在此输入 ID" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">账号</span>
+                        <input id="txtFindUserName" class="input RowRight CardInput" placeholder="请在此输入邮箱" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">邮箱</span>
+                        <input id="txtFindEmail" type="email" class="input RowRight CardInput" placeholder="请在此输入密码" />
+                    </div>
+                    <div>
+                        <span class="inputSpan">年龄</span>
+                        <input id="txtFindAge" type="number" class="input RowRight CardInput" placeholder="请在此输入年龄" />
+                    </div>
+                    <button id="findUser" class="RowLeft Fill" style="margin-top: 12px;"
+                        onclick="onFindUser()">查询用户</button>
+                </div>
+
+                <div class="userList Card">
+                    <table id="tbUserList" class="list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>密码</th>
+                                <th>邮箱</th>
+                                <th>年龄</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<style>
+    #container {
+        padding: 20px;
+        flex-direction: column;
+    }
+
+    .ManageCard {
+        min-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    .ManageCard:last-child {
+        margin-bottom: 0;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .userList {
+        margin-bottom: 25px;
+        padding: 25px;
+    }
+
+    th {
+        border-bottom: 3px white solid;
+    }
+</style>
+
+</html>
+
+<!-- <h1>添加用户</h1>
 <div>
-    用户名：<input type="text" id="txtInsertUserName"/>
-    邮箱：<input type="email" id="txtInsertEmail"/>
-    密码：<input type="password" id="txtInsertPassword"/>
-    年龄：<input type="text" id="txtInsertAge"/>
-    <input type="button" id="addUser" value="新增用户" onclick="onAddUser()"/>
+    用户名：<input type="text" id="txtInsertUserName" />
+    邮箱：<input type="email" id="txtInsertEmail" />
+    密码：<input type="password" id="txtInsertPassword" />
+    年龄：<input type="text" id="txtInsertAge" />
+    <input type="button" id="addUser" value="新增用户" onclick="onAddUser()" />
 </div>
 <h1>修改用户</h1>
 <div>
-    根据ID：<input type="text" id="txtUpdateId"/>
-    <input type="button" id="updateUser" value="修改用户信息"
-           onclick="onUpdateUser()"/><br/>
-    用户名：<input type="text" id="txtUpdateUserName"/>
-    邮箱：<input type="email" id="txtUpdateUserEmail"/>
-    密码：<input type="password" id="txtUpdatePassword"/>
-    年龄：<input type="text" id="txtUpdateAge"/>
+    根据ID：<input type="text" id="txtUpdateId" />
+    <input type="button" id="updateUser" value="修改用户信息" onclick="onUpdateUser()" /><br />
+    用户名：<input type="text" id="txtUpdateUserName" />
+    邮箱：<input type="email" id="txtUpdateUserEmail" />
+    密码：<input type="password" id="txtUpdatePassword" />
+    年龄：<input type="text" id="txtUpdateAge" />
 </div>
 <h1>删除用户</h1>
 <div>
-    ID：<input type="text" id="txtDeleteId"/>
-    用户名：<input type="text" id="txtDeleteUserName"/>
-    邮箱：<input type="email" id="txtDeleteEmail"/>
-    年龄：<input type="text" id="txtDeleteAge"/>
-    <input type="button" id="deleteUser" value="删除用户" onclick="onDeleteUser()"/>
+    ID：<input type="text" id="txtDeleteId" />
+    用户名：<input type="text" id="txtDeleteUserName" />
+    邮箱：<input type="email" id="txtDeleteEmail" />
+    年龄：<input type="text" id="txtDeleteAge" />
+    <input type="button" id="deleteUser" value="删除用户" onclick="onDeleteUser()" />
 </div>
 
 <h1>查询用户</h1>
 <div>
-    ID：<input type="text" id="txtFindId"/>
-    用户名：<input type="text" id="txtFindUserName"/>
-    邮箱：<input type="email" id="txtFindEmail"/>
-    年龄：<input type="text" id="txtFindAge"/>
-    <input type="button" id="findUser" value="查询用户" onclick="onFindUser()"/>
+    ID：<input type="text" id="txtFindId" />
+    用户名：<input type="text" id="txtFindUserName" />
+    邮箱：<input type="email" id="txtFindEmail" />
+    年龄：<input type="text" id="txtFindAge" />
+    <input type="button" id="findUser" value="查询用户" onclick="onFindUser()" />
 </div>
 <div class="userList">
     <table id="tbUserList" class="list">
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>用户名</th>
-            <th>密码</th>
-            <th>邮箱</th>
-            <th>年龄</th>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>邮箱</th>
+                <th>年龄</th>
+            </tr>
         </thead>
         <tbody>
         </tbody>
-    </table>
-</div>
-</body>
-</html>
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>管理用户</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--</body>-->
-<!--</html>-->
+    </table> 
+ </div> -->
