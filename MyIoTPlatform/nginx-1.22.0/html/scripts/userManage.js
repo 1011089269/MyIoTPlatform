@@ -111,15 +111,14 @@ function onModifyUser() {
     const userName = $("#txtUpdateUserName").val();
     const email = $("#txtUpdateEmail").val();
     const age = Number($("#txtUpdateAge").val());
-    if (id && !(userName || password || email || age)) {
+    if (!(userName || email || age)) {
         alertBlur("请保证更新参数不为空");
         return;
     }
     $.ajax({
         url: URL_HEAD + "modify",
         type: "put",
-        headers: {
-            "tokenValue":getTokenValue(),
+        data: { "tokenValue": getTokenValue(),
             "name": userName,
             "email": email,
             "age": age },

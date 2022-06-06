@@ -103,9 +103,9 @@ public class UserController {
     @PutMapping("/modify")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public Result updateUserInfo(String tokenvalue, String name, String email, int age) {
+    public Result updateUserInfo(String tokenValue, String name, String email, Integer age) {
         User user = new User();
-        Token token = new Token(tokenvalue);
+        Token token = new Token(tokenValue);
         user.setId(token.getId());
         user.setAge(age);
         user.setEmail(email);
