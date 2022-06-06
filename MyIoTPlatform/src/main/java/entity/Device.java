@@ -1,26 +1,29 @@
 package entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.redis.core.index.Indexed;
 
+import java.io.Serializable;
 import java.util.Date;
 
-@ApiModel(value = "Device", description = "设备对象Device")
-public class Device {
-    @ApiModelProperty(value = "ID", name = "id", example = "1")
-    private int id;
-    @ApiModelProperty(value = "设备名称", name = "name", example = "温度传感器")
+@Document(collection = "device")
+public class Device implements Serializable {
+    @Id
+    @Indexed
+    private String id;
+    @Indexed
     private String name;
-    @ApiModelProperty(value = "更新时间", example = "yyyy-mm-dd hh:mm:ss")
-    private Date time;
-    @ApiModelProperty(value = "数据类型", name = "dataType", example = "1/2/3")
+
+    private String time;
+
     private int dataType;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -32,14 +35,13 @@ public class Device {
         this.name = name;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
-
 
     public int getDataType() {
         return dataType;

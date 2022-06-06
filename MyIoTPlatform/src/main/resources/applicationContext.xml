@@ -2,16 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:mva="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       https://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/mvc
-       https://www.springframework.org/schema/mvc/spring-mvc.xsd
-       http://www.springframework.org/schema/util
-       https://www.springframework.org/schema/util/spring-util.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    https://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/util
+    https://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
     <!--启动Springmvc注解驱动-->
     <mvc:annotation-driven />
 
@@ -94,4 +98,14 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
+    <!-- 配置mongo -->
+    <mongo:mapping-converter base-package="entity"/>
+    <mongo:mongo-client id="mongo" host="localhost" port="27017" credentials="root:13579@admin">
+        <mongo:client-options write-concern="NORMAL" />
+    </mongo:mongo-client>
+
+    <mongo:db-factory id="mongoDbFactory" dbname="test" mongo-ref="mongo"/>
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
 </beans>
