@@ -189,8 +189,7 @@ public class UserManageService {
             return result;
         }
         String newPassword = getPassWordOne(8);
-        foundUser.setPassword(newPassword);
-        System.out.println("SYC"+foundUser.getPassword());
+        foundUser.setPassword(getMD5Str(newPassword));
         int temp = userDao.updateUserInfo(foundUser);
         sendEmail(email, newPassword);
         result.setStatus(1);

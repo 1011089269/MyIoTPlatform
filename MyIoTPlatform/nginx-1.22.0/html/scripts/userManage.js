@@ -379,7 +379,7 @@ function onChangePassword() {
         success: function (result) {
             alert(result.msg);
             if(result.status == 1){
-                jump(index.html);
+                jump('index.html');
             }
         },
         error: function (xhr, textStatus, errorThrown) {
