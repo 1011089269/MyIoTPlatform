@@ -97,6 +97,12 @@
             <bean class="controller.interceptor.TokenInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/device/**"/>
+            <bean class="controller.interceptor.TokenInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- 配置mongo -->
     <mongo:mapping-converter base-package="entity"/>

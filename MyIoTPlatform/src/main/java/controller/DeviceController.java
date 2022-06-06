@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import controller.interceptor.Authority;
 import entity.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +37,7 @@ public class DeviceController {
     //设备添加
     @PostMapping("/add")
     @ResponseBody
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public void addDevice(Device device) {
         //name,time,dataType,id别写
         service.insert(device);
@@ -43,6 +45,7 @@ public class DeviceController {
     //设备查找
     @GetMapping("/find")
     @ResponseBody
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public String findDevice() {
         service.findList(0,100);
         Gson gson = new Gson();
@@ -53,6 +56,7 @@ public class DeviceController {
     //设备更新
     @PutMapping("/update")
     @ResponseBody
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public void updateDevice(Device device) {
         //name,time,dataType,id都写
         service.update(device);
@@ -60,6 +64,7 @@ public class DeviceController {
     //设备删除
     @DeleteMapping("/delete")
     @ResponseBody
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public void deleteDevice(Device device) {
         //有id就行
         service.delete(device.getId());
@@ -68,6 +73,7 @@ public class DeviceController {
     //设备数据添加
     @PostMapping("/addData")
     @ResponseBody
+    @Authority(role = {Token.Type.DEVELOP})
     public void addData(String id, String data) {
         //name,time,dataType,id别写
         Device device = service.findById(id);
@@ -98,6 +104,7 @@ public class DeviceController {
     //查找某设备ID的全部历史数据
     @PostMapping("/findDataById")
     @ResponseBody
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public String findDataById(String deviceId) {
         Gson gson = new Gson();
         Device device = service.findById(deviceId);
@@ -120,6 +127,7 @@ public class DeviceController {
     //查找某设备ID的最新数据
     @PostMapping("/findLastByDeviceId")
     @ResponseBody
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public String findLastByDeviceId(String deviceId) {
         Gson gson = new Gson();
         Device device = service.findById(deviceId);
@@ -141,6 +149,7 @@ public class DeviceController {
     //查找某设备ID的时间段数据
     @PostMapping("/findListByPeriod")
     @ResponseBody
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public String findListByPeriod(String deviceId, String begin, String end) {
         Gson gson = new Gson();
         Device device = service.findById(deviceId);
@@ -161,6 +170,7 @@ public class DeviceController {
     //删除某条数据根据其id以及deviceId
     @PostMapping("/deleteDataByDeviceId")
     @ResponseBody
+    @Authority(role = {Token.Type.DEVELOP})
     public void deleteDataByDeviceId(String id, String deviceId) {
         Device device = service.findById(deviceId);
         int type = device.getDataType();
@@ -178,6 +188,7 @@ public class DeviceController {
     //删除某设备的全部数据
     @PostMapping("/deleteDataById")
     @ResponseBody
+    @Authority(role = {Token.Type.DEVELOP})
     public void deleteDataById(String deviceId) {
         measurementService.deleteByDeviceId(deviceId);
         alertService.deleteByDeviceId(deviceId);
