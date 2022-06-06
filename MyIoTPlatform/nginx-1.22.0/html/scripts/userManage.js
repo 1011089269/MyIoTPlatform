@@ -223,7 +223,7 @@ function onRegisterClick() {
             alertBlur(result.msg);
             if (result.status === 1) {
                 //跳转到登录页面
-                window.location.href = "login.html";
+                window.location.href = "index.html";
             }
         },
         error: function (xhr, textStatus, errorThrown) {
