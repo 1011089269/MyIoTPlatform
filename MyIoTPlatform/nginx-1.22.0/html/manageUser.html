@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSM演示用户增删改查操作</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+    <script type="text/javascript" src="scripts/util.js"></script>
+    <script type="text/javascript" src="scripts/userManage.js"></script>
+</head>
+<body onload="onUserManageLoad();">
+<h1>添加用户</h1>
+<div>
+    用户名：<input type="text" id="txtInsertUserName"/>
+    邮箱：<input type="email" id="txtInsertEmail"/>
+    密码：<input type="password" id="txtInsertPassword"/>
+    年龄：<input type="text" id="txtInsertAge"/>
+    <input type="button" id="addUser" value="新增用户" onclick="onAddUser()"/>
+</div>
+<h1>修改用户</h1>
+<div>
+    根据ID：<input type="text" id="txtUpdateId"/>
+    <input type="button" id="updateUser" value="修改用户信息"
+           onclick="onUpdateUser()"/><br/>
+    用户名：<input type="text" id="txtUpdateUserName"/>
+    邮箱：<input type="email" id="txtUpdateUserEmail"/>
+    密码：<input type="password" id="txtUpdatePassword"/>
+    年龄：<input type="text" id="txtUpdateAge"/>
+</div>
+<h1>删除用户</h1>
+<div>
+    ID：<input type="text" id="txtDeleteId"/>
+    用户名：<input type="text" id="txtDeleteUserName"/>
+    邮箱：<input type="email" id="txtDeleteEmail"/>
+    年龄：<input type="text" id="txtDeleteAge"/>
+    <input type="button" id="deleteUser" value="删除用户" onclick="onDeleteUser()"/>
+</div>
+
+<h1>查询用户</h1>
+<div>
+    ID：<input type="text" id="txtFindId"/>
+    用户名：<input type="text" id="txtFindUserName"/>
+    邮箱：<input type="email" id="txtFindEmail"/>
+    年龄：<input type="text" id="txtFindAge"/>
+    <input type="button" id="findUser" value="查询用户" onclick="onFindUser()"/>
+</div>
+<div class="userList">
+    <table id="tbUserList" class="list">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>邮箱</th>
+            <th>年龄</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>管理用户</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->

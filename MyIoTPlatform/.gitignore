@@ -7,3 +7,4 @@ out
 .gradle
 native
 gradle/wrapper
+nginx-1.22.0/logs

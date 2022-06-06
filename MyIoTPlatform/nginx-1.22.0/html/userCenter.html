@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户中心</title>
+    <script src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+    <script type="text/javascript" src="scripts/util.js"></script>
+    <script type="text/javascript" src="scripts/userManage.js"></script>
+</head>
+<body onload="onLoadUserCenter()">
+    <h1>登录状态</h1>
+    <label id="lblLoginState"></label>
+    <input type="button" id="btnLoginAction" onclick="onLoginActionClick()">
+    <h1>普通用户权限</h1>
+    <input type="button" id="btnModifyUserInfo" value="修改个人信息" onclick="onModifyUserInfoClick()"/>
+    <h1>管理员权限</h1>
+    <input type="button" id="btnManageUser" value="用户管理" onclick="onManageUserClick()"/>
+    <h1>开发者权限</h1>
+    <input type="button" id="btnUpdateVersion" value="软件升级" onclick="onVersionUpdateClick()"/>
+</body>
+</html>
