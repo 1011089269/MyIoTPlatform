@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import entity.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,8 +43,12 @@ public class DeviceController {
     //设备查找
     @GetMapping("/find")
     @ResponseBody
-    public void findDevice() {
+    public String findDevice() {
         service.findList(0,100);
+        Gson gson = new Gson();
+        String json = gson.toJson(service.findList(0,100));
+        System.out.println("查找全部设备："+json);
+        return json;
     }
     //设备更新
     @PutMapping("/update")
@@ -93,52 +98,64 @@ public class DeviceController {
     //查找某设备ID的全部历史数据
     @PostMapping("/findDataById")
     @ResponseBody
-    public void findDataById(String deviceId) {
+    public String findDataById(String deviceId) {
+        Gson gson = new Gson();
         Device device = service.findById(deviceId);
         int type = device.getDataType();
+        String json = null;
         //判断数据类型并查找
         if(type == 1){
-            measurementService.findListByDeviceId(deviceId,0,100);
+            json = gson.toJson(measurementService.findListByDeviceId(deviceId,0,100));
         }else if(type == 2){
-            alertService.findListByDeviceId(deviceId,0,100);
+            json = gson.toJson(alertService.findListByDeviceId(deviceId,0,100));
         }
         else if(type == 3){
-            statusService.findListByDeviceId(deviceId,0,100);
+            json = gson.toJson(statusService.findListByDeviceId(deviceId,0,100));
         }
+
+        System.out.println("设备ID的全部历史数据："+json);
+        return json;
     }
 
     //查找某设备ID的最新数据
     @PostMapping("/findLastByDeviceId")
     @ResponseBody
-    public void findLastByDeviceId(String deviceId) {
+    public String findLastByDeviceId(String deviceId) {
+        Gson gson = new Gson();
         Device device = service.findById(deviceId);
         int type = device.getDataType();
+        String json = null;
         //判断数据类型并查找
         if(type == 1){
-            measurementService.findLastByDeviceId(deviceId);
+            json = gson.toJson(measurementService.findLastByDeviceId(deviceId));
         }else if(type == 2){
-            alertService.findLastByDeviceId(deviceId);
+            json = gson.toJson(alertService.findLastByDeviceId(deviceId));
         }
         else if(type == 3){
-            statusService.findLastByDeviceId(deviceId);
+            json = gson.toJson(statusService.findLastByDeviceId(deviceId));
         }
+        System.out.println("查找设备ID的最新数据："+json);
+        return json;
     }
 
     //查找某设备ID的时间段数据
     @PostMapping("/findListByPeriod")
     @ResponseBody
-    public void findListByPeriod(String deviceId, String begin, String end) {
+    public String findListByPeriod(String deviceId, String begin, String end) {
+        Gson gson = new Gson();
         Device device = service.findById(deviceId);
         int type = device.getDataType();
+        String json = null;
         //判断数据类型并查找
         if(type == 1){
-            measurementService.findListByPeriod(deviceId,begin,end);
+            json = gson.toJson(measurementService.findListByPeriod(deviceId,begin,end));
         }else if(type == 2){
-            alertService.findListByPeriod(deviceId,begin,end);
+            json = gson.toJson(alertService.findListByPeriod(deviceId,begin,end));
         }
         else if(type == 3){
-            statusService.findListByPeriod(deviceId,begin,end);
+            json = gson.toJson(statusService.findListByPeriod(deviceId,begin,end));
         }
+        return json;
     }
 
     //删除某条数据根据其id以及deviceId

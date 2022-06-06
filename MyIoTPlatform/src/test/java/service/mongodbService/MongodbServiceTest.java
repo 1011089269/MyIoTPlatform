@@ -1,4 +1,5 @@
 package service.mongodbService;
+import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import entity.Alert;
@@ -31,6 +32,9 @@ class MongodbServiceTest {
     @Autowired
     private StatusService statusService;
 
+    Gson gson = new Gson();
+    String json = null;
+
     @Test
     void insertDevice() {
         Device device = new Device();
@@ -39,11 +43,12 @@ class MongodbServiceTest {
         device.setDataType(1);
         service.insert(device);
 
+
         List<Device> devices = service.findList(0,100);
         for(Device d : devices){
-            System.out.println(d);
+            json = gson.toJson(d);
+            System.out.println(json);
         }
-
     }
 
     @Test
@@ -57,7 +62,8 @@ class MongodbServiceTest {
         service.findList(0,100);
         List<Device> devices = service.findList(0,100);
         for(Device d : devices){
-            System.out.println(d);
+            json = gson.toJson(d);
+            System.out.println(json);
         }
     }
 
@@ -66,7 +72,8 @@ class MongodbServiceTest {
     void findListByName() {
         List<Device> devices = service.findListByName("光照传感器");
         for(Device d : devices){
-            System.out.println(d);
+            json = gson.toJson(d);
+            System.out.println(json);
         }
     }
 
@@ -80,7 +87,8 @@ class MongodbServiceTest {
         service.update(device);
         List<Device> devices = service.findList(0,100);
         for(Device d : devices){
-            System.out.println(d);
+            json = gson.toJson(d);
+            System.out.println(json);
         }
     }
 
@@ -89,7 +97,8 @@ class MongodbServiceTest {
         service.delete("629e31e3cc95065a62c7aa8b");
         List<Device> devices = service.findList(0,100);
         for(Device d : devices){
-            System.out.println(d);
+            json = gson.toJson(d);
+            System.out.println(json);
         }
     }
 
@@ -97,7 +106,7 @@ class MongodbServiceTest {
     @Test
     void insert() {
         Alert alert = new Alert();
-        alert.setDeviceId("629df0e5d5a43a7080b8e13a");
+        alert.setDeviceId("629e328e7def37676cd15d52");
         alert.setTime(df.format(new Date()));
         alert.setNews("Alert12");
         alertService.insert(alert);
