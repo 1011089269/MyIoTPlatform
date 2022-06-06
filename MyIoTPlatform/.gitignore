@@ -1,2 +1,8 @@
 # 数据库配置文件屏蔽
 db.properties
+
+caches
+daemon
+out
+.gradle
+native
