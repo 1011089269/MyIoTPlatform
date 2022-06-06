@@ -32,18 +32,19 @@
         update user
         <set>
             <if test="name!=null and name !=''">
-                and name=#{name}
+                name=#{name}
             </if>
             <if test="password!=null and password !=''">
-                and password=#{password}
+                password=#{password}
             </if>
             <if test="email!=null and email!=''">
-                and email=#{email}
+                email=#{email}
             </if>
             <if test="age!=0">
-                and age=#{age}
+                age=#{age}
             </if>
         </set>
+        where id=#{id}
     </update>
     <!--    删-->
     <delete id="deleteUser"  parameterType="entity.User">

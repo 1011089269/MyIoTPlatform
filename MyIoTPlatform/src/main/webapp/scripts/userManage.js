@@ -31,7 +31,7 @@ function onAddUser() {
 }
 
 function onFindUser() {
-    const id = Number($("txtFindId").val());
+    const id = Number($("#txtFindId").val());
     const userName = $("#txtFindUserName").val();
     const email = $("#txtFindEmail").val();
     const age = Number($("#txtFindAge").val());
