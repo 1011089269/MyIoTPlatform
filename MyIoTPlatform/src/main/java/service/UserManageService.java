@@ -51,7 +51,7 @@ public class UserManageService {
         }
         //判断用户密码是否正确
         User foundUser = users.get(0);
-        if (!foundUser.getPassword().equals(user.getPassword())) {
+        if (!foundUser.getPassword().equals(getMD5Str(user.getPassword()))) {
             result.setStatus(2);
             result.setMsg("密码错误");
             return result;
@@ -75,6 +75,7 @@ public class UserManageService {
             return result;
         }
         //添加用户
+        user.setPassword(getMD5Str(user.getPassword()));
         int affectedRowCount = userDao.addUser(user);
         if (affectedRowCount == 1) {
             result.setStatus(1);
@@ -116,6 +117,7 @@ public class UserManageService {
 
     public Result updateUserInfo(User user) {
         Result result = new Result();
+
         int affectedRowCount = userDao.updateUserInfo(user);
         if (affectedRowCount == 1) {
             result.setStatus(0);
@@ -167,11 +169,6 @@ public class UserManageService {
         return md5StrBuff.toString();
     }
 
-//    public static void sendEmail(String password, String email) throws IOException {
-//        //获取mail.properties中配置
-//        Properties properties = new Properties();
-//        InputStream inputStream = MSUtil.class
-//    }
 
     //重置密码
     public Result ChangePassword(User user) {
@@ -255,5 +252,26 @@ public class UserManageService {
             count++;
         }
         return stringBuffer.toString();
+    }
+
+    public Result updatepwd(int id , String oldpwd , String newpwd) {
+        Result result = new Result();
+        User user = new User();
+        user.setId(id);
+        userDao.findUser(user);
+        List<User> users = userDao.findUser(user);
+        User foundUser = users.get(0);
+        if (foundUser.getPassword().equals(getMD5Str(oldpwd))) {
+            if (oldpwd.equals(newpwd)) {
+                result.setMsg("原密码与新密码一致。");
+            } else {
+                foundUser.setPassword(getMD5Str(newpwd));
+                userDao.updateUserInfo(foundUser);
+                result.setMsg("修改成功。");
+            }
+        } else {
+            result.setMsg("原密码错误。");
+        }
+        return result;
     }
 }
