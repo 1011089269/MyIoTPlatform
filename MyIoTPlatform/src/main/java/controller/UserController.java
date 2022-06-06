@@ -143,11 +143,11 @@ public class UserController {
     @PostMapping("/updatepwd")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public Result updatepwd(String tokenvalue , String oldpwd , String newpwd) {
-        Token token = new Token(tokenvalue);
+    public Result updatepwd(String tokenValue , String oldpassword , String newpassword) {
+        Token token = new Token(tokenValue);
 
-        System.out.println("获取待修改密码的信息：tokenvale" + tokenvalue +"oldpwd" + oldpwd+"newpwd"+newpwd);
-        return userManageService.updatepwd(token.getId(),oldpwd,newpwd);
+        System.out.println("获取待修改密码的信息：tokenvale" + tokenValue +"oldpwd" + oldpassword+"newpwd"+newpassword);
+        return userManageService.updatepwd(token.getId(),oldpassword,newpassword);
     }
 
 }

@@ -389,30 +389,32 @@ function onChangePassword() {
 }
 
 function updatepwd() {
-    const oldpassword = $("#txtLoginName").val();
+    const oldpassword = $("#txtLoginPwd").val();
     if (!oldpassword) {
         alert("用户名不得为空");
         return;
     }
-    const password1 = $("#txtLoginPassword").val();
-    const password2 = $("#txtLoginPassword").val();
-    if (password1==password2) {
-        alert("密码一致");
+    const password1 = $("#txtLoginPwd1").val();
+    const password2 = $("#txtLoginPwd2").val();
+    if (password1!=password2) {
+        alert("请确保两次输入的新密码一致");
         return;
     }
     $.ajax({
         url: URL_HEAD + "updatepwd",
         //通过type来判断调用哪个方法
         type: "post",
-        headers: {
-            "tokenValue":getTokenValue(),
+        data: {
+            "tokenValue": getTokenValue(),
             "oldpassword": oldpassword,
             "newpassword": password1
         },
         dataType: "json",
         success: function (result) {
             alert(result.msg);
-
+            if(result.status == 1){
+                jump('userCenter.html');
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("密码异常", xhr, textStatus, errorThrown);

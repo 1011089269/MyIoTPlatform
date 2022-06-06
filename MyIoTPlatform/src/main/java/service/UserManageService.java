@@ -270,14 +270,17 @@ public class UserManageService {
         User foundUser = users.get(0);
         if (foundUser.getPassword().equals(getMD5Str(oldpwd))) {
             if (oldpwd.equals(newpwd)) {
-                result.setMsg("原密码与新密码一致。");
+                result.setStatus(0);
+                result.setMsg("原密码与新密码一致");
             } else {
                 foundUser.setPassword(getMD5Str(newpwd));
                 userDao.updateUserInfo(foundUser);
-                result.setMsg("修改成功。");
+                result.setStatus(1);
+                result.setMsg("密码修改成功");
             }
         } else {
-            result.setMsg("原密码错误。");
+            result.setStatus(0);
+            result.setMsg("原密码错误");
         }
         return result;
     }
