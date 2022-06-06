@@ -28,7 +28,7 @@
                 <div class="MenuButton Card" onclick="jump('userCenter.html')">
                     <span class="CardTitle">用户中心</span>
                 </div>
-                <div class="MenuButton Card" onclick="">
+                <div class="MenuButton Card" onclick="jump('deviceManage.html')">
                     <span class="CardTitle">设备管理</span>
                 </div>
                 <div class="MenuButton Card" onclick="jump('deviceViewer.html')">
@@ -43,48 +43,37 @@
 
                 <div class="CardTitleInner">数据展示</div>
                 <hr class="hr">
-                <div class="Row Flex">
+                <div class="Row Flex" style="margin-bottom: 0">
                     <div class="inputBox Fill" style="margin-right: 20px;">
-                        <span style="margin-right: 5px;">选择设备</span>
+                        <span style="margin-right: 10px;">选择设备</span>
                         <select id="selRegisterRole" class="input">
                             <option value="0" selected="selected">设备1</option>
                             <option value="1">设备2</option>
                         </select>
                     </div>
                     <div class="inputBox Fill">
-                        <span style="margin-right: 5px;">选择数据源</span>
+                        <span style="margin-right: 10px;">选择数据源</span>
                         <select id="selRegisterRole" class="input">
                             <option value="0" selected="selected">实时（来自 MQTT）</option>
-                            <option value="1">实时（来自 MongoDB）</option>
+                            <option value="1">历史（来自 MongoDB）</option>
                         </select>
                     </div>
                 </div>
-                <button id="btnLoginAction" class="Fill" style="margin-top: 12px;" onclick="">查看数据</button>
-                <div class="Card" style="margin:0; margin-top: 20px;"></div>
-
-                <div class="CardTitleInner">设备列表</div>
-                <hr class="hr">
-                <div class="Row FlexColumn">
-                    <div class="List Card">
-                        <table id="tbUserList" class="list">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>设备名称</th>
-                                    <th>数据更新时间</th>
-                                    <th>在线 / 离线</th>
-                                    <th>数据类型</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                <div class="Row Flex" style="margin-bottom: 0">
+                    <div class="inputBox Fill" style="margin-right: 20px;">
+                        <span style="margin-right: 10px;    padding-top: 10px;">起始时间</span>
+                        <input id="txtInsertDeviceTime" type="datetime" class="input RowRight CardInput"
+                            placeholder="请在此输入时间" />
+                    </div>
+                    <div class="inputBox Fill">
+                        <span style="margin-right: 10px; padding-top: 10px;">结束时间</span>
+                        <input id="txtInsertDeviceTime" type="datetime" class="input RowRight CardInput"
+                            placeholder="请在此输入时间" />
                     </div>
                 </div>
-
-
-
+                <button id="btnLoginAction" class="Fill" style="margin-top: 12px;" onclick="">查看数据</button>
+                <div class="Card" style="margin:20px 0; padding: 20px;">Logs</div>
+                <button id="btnLoginAction" class="Fill" style="margin: 0 0 20px 0;" onclick="">删除该设备所有历史数据</button>
             </div>
         </div>
         <div class="Row Flex">
@@ -98,7 +87,7 @@
             </div>
             <div class="Card">
                 <span class="CardTitle">开发者权限</span>
-                <button id="btnUpdateVersion" class="RowRight" onclick="onVersionUpdateClick()">设备管理</button>
+                <button id="btnUpdateVersion" class="RowRight" onclick="jump('deviceManage.html')">设备管理</button>
             </div>
         </div>
     </div>

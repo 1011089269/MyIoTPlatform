@@ -110,6 +110,14 @@ option {
     width: calc(100% - 130px);
 }
 
+.CardSelect {
+    margin: 20px 0;
+    height: 50px;
+    margin-top: 8px;
+    margin-left: -5px;
+    width: 282px;
+}
+
 .inputSpan {
     line-height: 67px;
 }
