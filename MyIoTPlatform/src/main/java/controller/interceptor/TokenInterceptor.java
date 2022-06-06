@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author d'f'g
@@ -43,10 +45,25 @@ public class TokenInterceptor implements HandlerInterceptor {
         Token.Type role[] = method.getAnnotation(Authority.class).role();
 
         // 检查token
-        String tokenValue = request.getHeader("tokenValue");
+//        String tokenValue = request.getHeader("tokenValue");
+        Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
+        Cookie[] cookies = request.getCookies();
+        if (null != cookies) {
+            for (Cookie cookie : cookies) {
+                cookieMap.put(cookie.getName(), cookie);
+            }
+        }
+        Cookie cookie = null;
+        if (cookieMap.containsKey("tokenValue")) {
+            cookie = cookieMap.get("tokenValue");
+        } else {    //cookie中没有Token
+            showInterceptionInfo(response, -1, "请先登录");
+            return false;
+        }
+        String tokenValue = cookie.getValue();
         if (StringUtils.isNotEmpty(tokenValue) && !tokenValue.equals("null")) {
             Token token = new Token(tokenValue);
-            if (!tokenManager.checkToken(token)) {
+            if (tokenManager.checkToken(token)) {
                 for (int i = 0; i < role.length; i++) {
                     if (token.getType() == role[i]) {
                         return true;

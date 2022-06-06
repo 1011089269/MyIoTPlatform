@@ -176,7 +176,6 @@ public class UserManageService {
     //重置密码
     public Result ChangePassword(User user) {
         Result result = new Result();
-        System.out.println("SYC"+user.toString());
         List<User> users = userDao.findUser(user);
         if (users == null || users.isEmpty()) {
             result.setStatus(1);
@@ -227,7 +226,7 @@ public class UserManageService {
             // 设置邮件主题:
             message.setSubject("重置密码", "UTF-8");
             // 设置邮件正文:
-            message.setText(emailInfo, "UTF-8");
+            message.setText("新的密码:"+emailInfo, "UTF-8");
             // 发送:
             Transport.send(message);
 

@@ -155,6 +155,9 @@ function onLoginClick() {
                 window.location.href = "register.html";
             } else if (result.status === 3) {
                 //登录成功，保存token
+                document.cookie="tokenValue="+result.data;
+                //设置cookie过期（即，删除cookie）
+                // document.cookie="tokenValue=cookie-value;expires=date";
                 window.localStorage.setItem(ITEM_KEY_TOKEN_VALUE, result.data);
                 window.location.href = "userCenter.html";
             }
