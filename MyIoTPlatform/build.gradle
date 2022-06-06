@@ -63,6 +63,8 @@ dependencies {
     implementation 'org.springframework.data:spring-data-mongodb:2.2.0.RELEASE'
     implementation 'org.springframework.data:spring-data-commons:2.2.0.RELEASE'
     implementation 'org.mongodb:mongo-java-driver:2.10.1'
+    //javamail
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 }
 
 test {

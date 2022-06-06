@@ -6,12 +6,18 @@ import entity.User;
 import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -27,7 +33,8 @@ import java.util.regex.Pattern;
 public class UserManageService {
     private final UserDao userDao;
     private final TokenManager tokenManager;
-    public UserManageService(UserDao userDao,TokenManager tokenManager) {
+
+    public UserManageService(UserDao userDao, TokenManager tokenManager) {
         this.userDao = userDao;
         this.tokenManager = tokenManager;
     }
@@ -149,11 +156,10 @@ public class UserManageService {
         }
         byte[] byteArray = messageDigest.digest();
         StringBuffer md5StrBuff = new StringBuffer();
-        for (int i = 0; i<byteArray.length; i++) {
+        for (int i = 0; i < byteArray.length; i++) {
             if (Integer.toHexString(0xFF & byteArray[i]).length() == 1) {
                 md5StrBuff.append("0").append(Integer.toHexString(0xFF & byteArray[i]));
-            }
-            else {
+            } else {
                 md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
             }
         }
@@ -166,5 +172,50 @@ public class UserManageService {
 //        InputStream inputStream = MSUtil.class
 //    }
 
+//    public Result ChangePassword() {
+//
+//
+//    }
+
+    public void sendEmail() {
+        // 1. 创建参数配置, 用于连接邮件服务器的参数配置
+        // 服务器地址:
+        String smtp = "smtp.163.com";
+        // 登录用户名:
+        String username = "C38097451@163.com";
+        // 登录口令:
+        String password = "LL0806";
+        // 连接到SMTP服务器587端口:
+        Properties props = new Properties();
+        props.put("mail.smtp.host", smtp); // SMTP主机名
+        props.put("mail.smtp.port", "25"); // 主机端口号
+        props.put("mail.smtp.auth", "true"); // 是否需要用户认证
+        props.put("mail.smtp.starttls.enable", "true"); // 启用TLS加密
+//        props.put("mail.smtp.ssl.enable", true);
+        // 获取Session实例:
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+        // 设置debug模式便于调试:
+        session.setDebug(true);
+        MimeMessage message = new MimeMessage(session);
+        try {
+            // 设置发送方地址:
+            message.setFrom(new InternetAddress("C38097451@163.com"));
+            // 设置接收方地址:
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress("850952228@qq.com"));
+            // 设置邮件主题:
+            message.setSubject("重置密码", "UTF-8");
+            // 设置邮件正文:
+            message.setText("Hi Xiaoming...", "UTF-8");
+            // 发送:
+            Transport.send(message);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
