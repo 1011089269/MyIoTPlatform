@@ -116,5 +116,13 @@ public class UserController {
         return userManageService.deleteUser(user);
     }
 
+    @PostMapping("/changepwd")
+    @ResponseBody
+    @FreeToken
+    public Result changepwd(User user) {
+
+        System.out.println("获取待重置密码的用户信息：" + user);
+        return userManageService.ChangePassword(user);
+    }
 
 }

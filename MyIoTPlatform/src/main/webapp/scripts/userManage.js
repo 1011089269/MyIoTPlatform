@@ -323,3 +323,24 @@ function onVersionUpdateClick() {
         }
     });
 }
+
+function onChangePassword() {
+    const userName = $("#txtLoginName").val();
+    if (!userName) {
+        alert("用户名不得为空");
+        return;
+    }
+    $.ajax({
+        url: URL_HEAD + "changepwd",
+        //通过type来判断调用哪个方法
+        type: "post",
+        data: { "name": userName },
+        dataType: "json",
+        success: function (result) {
+            alert(result.msg);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            showError("版本更新异常", xhr, textStatus, errorThrown);
+        }
+    });
+}

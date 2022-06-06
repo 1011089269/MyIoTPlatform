@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -172,12 +173,29 @@ public class UserManageService {
 //        InputStream inputStream = MSUtil.class
 //    }
 
-//    public Result ChangePassword() {
-//
-//
-//    }
+    //重置密码
+    public Result ChangePassword(User user) {
+        Result result = new Result();
+        System.out.println("SYC"+user.toString());
+        List<User> users = userDao.findUser(user);
+        if (users == null || users.isEmpty()) {
+            result.setStatus(1);
+            result.setMsg("此用户不存在，请先进行注册");
+            return result;
+        }
+        User foundUser = users.get(0);
+        String email = foundUser.getEmail();
+        String newPassword = getPassWordOne(8);
+        foundUser.setPassword(newPassword);
+        System.out.println("SYC"+foundUser.getPassword());
+        int temp = userDao.updateUserInfo(foundUser);
+        sendEmail(email, newPassword);
+        result.setMsg("邮件已发送，请重置密码!");
+        return result;
+    }
 
-    public void sendEmail() {
+    // 发送邮件
+    public void sendEmail(String emailAddr, String emailInfo) {
         // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         // 服务器地址:
         String smtp = "smtp.163.com";
@@ -205,11 +223,11 @@ public class UserManageService {
             // 设置发送方地址:
             message.setFrom(new InternetAddress("C38097451@163.com"));
             // 设置接收方地址:
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress("850952228@qq.com"));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailAddr));
             // 设置邮件主题:
             message.setSubject("重置密码", "UTF-8");
             // 设置邮件正文:
-            message.setText("Hi Xiaoming...", "UTF-8");
+            message.setText(emailInfo, "UTF-8");
             // 发送:
             Transport.send(message);
 
@@ -218,4 +236,25 @@ public class UserManageService {
         }
     }
 
+    //生成随机密码
+    public static String getPassWordOne(int len) {
+        int i; //生成的随机数
+        int count = 0; //生成的密码的长度
+        // 密码字典
+        char[] str = {
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                '~', '!', '@', '#', '$', '%', '^', '-', '+'
+        };
+        StringBuffer stringBuffer = new StringBuffer("");
+        Random r = new Random();
+        while (count < len) {
+            //生成 0 ~ 密码字典-1之间的随机数
+            i = r.nextInt(str.length);
+            stringBuffer.append(str[i]);
+            count++;
+        }
+        return stringBuffer.toString();
+    }
 }

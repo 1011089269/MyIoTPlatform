@@ -32,13 +32,13 @@
         update user
         <set>
             <if test="name!=null and name !=''">
-                name=#{name}
+                name=#{name},
             </if>
             <if test="password!=null and password !=''">
-                password=#{password}
+                password=#{password},
             </if>
             <if test="email!=null and email!=''">
-                email=#{email}
+                email=#{email},
             </if>
             <if test="age!=0">
                 age=#{age}
