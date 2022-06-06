@@ -1,11 +1,27 @@
 package entity;
 
-import javax.xml.crypto.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.redis.core.index.Indexed;
 
+import javax.xml.crypto.Data;
+@Document(collection = "status")
 public class Status {
+    @Id
+    @Indexed
+    private String id;
+    @Indexed
     private String deviceId;
-    private Data timing;
-    private int status;
+    private String time;
+    private int status;//状态0/1
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDeviceId() {
         return deviceId;
@@ -15,12 +31,12 @@ public class Status {
         this.deviceId = deviceId;
     }
 
-    public Data getTiming() {
-        return timing;
+    public String getTime() {
+        return time;
     }
 
-    public void setTiming(Data timing) {
-        this.timing = timing;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public int getStatus() {
@@ -33,9 +49,10 @@ public class Status {
 
     @Override
     public String toString() {
-        return "Measurement{" +
-                "deviceId='" + deviceId + '\'' +
-                ", timing=" + timing +
+        return "Status{" +
+                "id='" + id + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", time='" + time + '\'' +
                 ", status=" + status +
                 '}';
     }

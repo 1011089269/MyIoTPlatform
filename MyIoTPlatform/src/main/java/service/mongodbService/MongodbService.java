@@ -35,6 +35,13 @@ public class MongodbService implements IBaseDao<Device> {
     }
 
     @Override
+    public List<Device> findList(int skip, int limit) {
+        Query query = new Query();
+        query.skip(skip).limit(limit);
+        return this.mongoTemplate.find(query, Device.class);
+    }
+
+    @Override
     public List<Device> findListByName(String name) {
         Query query = new Query();
         query.addCriteria(new Criteria("name").is(name));
@@ -59,8 +66,5 @@ public class MongodbService implements IBaseDao<Device> {
         this.mongoTemplate.remove(query, Device.class);
     }
 
-    @Override
-    public List<Device> findAll() {
-        return this.mongoTemplate.findAll(Device.class);
-    }
+
 }

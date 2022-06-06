@@ -5,10 +5,12 @@ import entity.Token;
 import entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.Result;
 import service.UserManageService;
+import service.mqttService.Client;
 
 /**
  * @author fzw
@@ -20,10 +22,17 @@ import service.UserManageService;
 @Controller
 @RequestMapping("user")
 public class UserController {
+
     private final UserManageService userManageService;
-    public UserController(UserManageService userManageService) {
+    public UserController(UserManageService userManageService) throws MqttException {
         this.userManageService = userManageService;
+        Client client = new Client();
+        client.connect();
+        String topic = "test";
+        //订阅
+        client.subscribe(topic,0);
     }
+
     @PostMapping("/login")
     @ResponseBody
     @FreeToken
