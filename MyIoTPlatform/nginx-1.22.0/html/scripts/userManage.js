@@ -155,6 +155,7 @@ function onLoginClick() {
                 window.location.href = "register.html";
             } else if (result.status === 3) {
                 //登录成功，保存token
+                document.cookie="tokenValue="+result.data;
                 window.localStorage.setItem(ITEM_KEY_TOKEN_VALUE, result.data);
                 window.location.href = "userCenter.html";
             }
@@ -322,6 +323,59 @@ function onVersionUpdateClick() {
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("版本更新异常", xhr, textStatus, errorThrown);
+        }
+    });
+}
+
+function onChangePassword() {
+    const userName = $("#txtLoginName").val();
+    if (!userName) {
+        alert("用户名不得为空");
+        return;
+    }
+    $.ajax({
+        url: URL_HEAD + "changepwd",
+        //通过type来判断调用哪个方法
+        type: "post",
+        data: { "name": userName },
+        dataType: "json",
+        success: function (result) {
+            alert(result.msg);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            showError("版本更新异常", xhr, textStatus, errorThrown);
+        }
+    });
+}
+
+function updatepwd() {
+    const oldpassword = $("#txtLoginName").val();
+    if (!oldpassword) {
+        alert("用户名不得为空");
+        return;
+    }
+    const password1 = $("#txtLoginPassword").val();
+    const password2 = $("#txtLoginPassword").val();
+    if (password1==password2) {
+        alert("密码一致");
+        return;
+    }
+    $.ajax({
+        url: URL_HEAD + "updatepwd",
+        //通过type来判断调用哪个方法
+        type: "post",
+        headers: {
+            "tokenValue":getTokenValue(),
+            "oldpassword": oldpassword,
+            "newpassword": password1
+        },
+        dataType: "json",
+        success: function (result) {
+            alert(result.msg);
+
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            showError("密码异常", xhr, textStatus, errorThrown);
         }
     });
 }
