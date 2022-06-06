@@ -1,6 +1,7 @@
 package controller;
 
 import controller.interceptor.FreeToken;
+import entity.Token;
 import entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,10 +51,31 @@ public class UserController {
     public Result logout(String tokenValue) {
         return userManageService.logout(tokenValue);
     }
+    @GetMapping("/modify/info")
+    @ResponseBody
+    @FreeToken
+    public Result modifyUserInfo() {
+        return new Result();
+    }
+
+    @GetMapping("/manage")
+    @ResponseBody
+    @FreeToken
+    public Result manageUsers() {
+        return new Result();
+    }
+
+    @GetMapping("/update/version")
+    @ResponseBody
+    @FreeToken
+    public Result updateSoftwareVersion() {
+        return new Result();
+    }
 
     //@RequestMapping(value="/add",method = RequestMethod.POST)
     @PostMapping("/add")
     @ResponseBody
+    @FreeToken
     public Result addUser(User user) {
         System.out.println("获取待新增用户信息：" + user);
         return userManageService.addUser(user);
@@ -62,6 +84,7 @@ public class UserController {
     @ApiOperation(value = "查找用户", tags = {"查找用户tag"}, notes = "所有参数均为选填，若都不填则找出所有用户")
     @GetMapping("/find")
     @ResponseBody
+    @FreeToken
     public Result findUser(User user) {
         System.out.println("获取待查询用户信息" + user);
         return userManageService.findUser(user);
@@ -69,6 +92,7 @@ public class UserController {
 
     @PutMapping("/update")
     @ResponseBody
+    @FreeToken
     public Result updateUserInfo(User user) {
         System.out.println("获取待更新用户信息：" + user);
         return userManageService.updateUserInfo(user);
@@ -76,6 +100,7 @@ public class UserController {
 
     @DeleteMapping("/delete")
     @ResponseBody
+    @FreeToken
     public Result deleteUser(User user) {
 
         System.out.println("获取待删除用户信息：" + user);
