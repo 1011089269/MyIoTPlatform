@@ -25,8 +25,9 @@ public class StatusService implements DataBaseDao<Status> {
     }
 
     @Override
-    public void insert(Status entity) {
+    public boolean insert(Status entity) {
         mongoTemplate.insert(entity);
+        return true;
     }
 
     @Override

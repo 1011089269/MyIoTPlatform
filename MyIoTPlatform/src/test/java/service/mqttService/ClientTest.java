@@ -1,5 +1,9 @@
 package service.mqttService;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import entity.Device;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +13,11 @@ class ClientTest {
 
     @Test
     void connect() throws MqttException {
-        Client client = new Client();
-        client.connect();
+        String s = "{\"Res\":5}";
+        Gson gson = new Gson();
+        JsonObject data = (JsonObject) new JsonParser().parse(s).getAsJsonObject();
+        String Res = data.get("Res").getAsString();
+        System.out.println(Res);
     }
 
     @Test
@@ -21,7 +28,7 @@ class ClientTest {
         //订阅
         client.subscribe(topic,0);
         //发布
-        String msg = "{\"temperature\":28, \"humidity\":26}";
+        String msg = "{deviceId=\"629e328e7def37676cd15d52\", data=\"AAAAA\", dataType=2}";
         client.publish(topic,msg);
         Thread.sleep(5000);
         //测试接收

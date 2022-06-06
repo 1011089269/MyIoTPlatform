@@ -34,13 +34,16 @@ class MongodbServiceTest {
 
     Gson gson = new Gson();
     String json = null;
-
+    @Test
+    void se() {
+        System.out.println(alertService);
+    }
     @Test
     void insertDevice() {
         Device device = new Device();
-        device.setName("光照传感器");
+        device.setName("烟雾警报器");
         device.setTime(df.format(new Date()));
-        device.setDataType(1);
+        device.setDataType(3);
         service.insert(device);
 
 
@@ -54,7 +57,7 @@ class MongodbServiceTest {
     @Test
     void findById() {
 
-        System.out.println(service.findById("629e31e3cc95065a62c7aa8b"));
+        System.out.println(service.findById("629e328e7def37676cd15d52"));
     }
 
     @Test
@@ -80,10 +83,10 @@ class MongodbServiceTest {
     @Test
     void update() {
         Device device = new Device();
-        device.setId("629e31e3cc95065a62c7aa8b");
+        device.setId("629e328e7def37676cd15d52");
         device.setName("温湿度传感器");
         device.setTime(df.format(new Date()));
-        device.setDataType(1);
+        device.setDataType(2);
         service.update(device);
         List<Device> devices = service.findList(0,100);
         for(Device d : devices){
@@ -106,7 +109,7 @@ class MongodbServiceTest {
     @Test
     void insert() {
         Alert alert = new Alert();
-        alert.setDeviceId("629e328e7def37676cd15d52");
+        alert.setDeviceId("629e31e3cc95065a62c7aa8b");
         alert.setTime(df.format(new Date()));
         alert.setNews("Alert12");
         alertService.insert(alert);
@@ -114,13 +117,13 @@ class MongodbServiceTest {
 
     @Test
     void findLastByDeviceId() {
-        System.out.println(alertService.findLastByDeviceId("629df0e5d5a43a7080b8e13a"));
+        System.out.println(alertService.findLastByDeviceId("629e328e7def37676cd15d52"));
 
     }
 
     @Test
     void findListByDeviceId() {
-        System.out.println(alertService.findListByDeviceId("629df0e5d5a43a7080b8e13a",0, 100));
+        System.out.println(alertService.findListByDeviceId("629e328e7def37676cd15d52",0, 100));
 
     }
 

@@ -28,8 +28,9 @@ public class MeasurementService implements DataBaseDao<Measurement> {
     }
 
     @Override
-    public void insert(Measurement entity) {
+    public boolean insert(Measurement entity) {
         mongoTemplate.insert(entity);
+        return true;
     }
 
     @Override

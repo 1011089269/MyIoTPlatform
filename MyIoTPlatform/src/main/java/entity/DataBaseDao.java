@@ -6,7 +6,7 @@ public interface DataBaseDao<T> {
     //创建对象文档集合
     public void createCollection();
     //插入数据
-    public void insert(T entity);
+    public boolean insert(T entity);
     //设备最后一个id查询
     public T findLastByDeviceId(String deviceId);
     //设备id指定位置查询

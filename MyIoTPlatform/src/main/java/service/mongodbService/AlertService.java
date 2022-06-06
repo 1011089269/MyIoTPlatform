@@ -27,8 +27,9 @@ public class AlertService implements DataBaseDao<Alert> {
     }
 
     @Override
-    public void insert(Alert entity) {
+    public boolean insert(Alert entity) {
         mongoTemplate.insert(entity);
+        return true;
     }
 
     @Override

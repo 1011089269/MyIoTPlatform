@@ -1,13 +1,24 @@
 package service.mqttService;
 
 import com.google.gson.Gson;
-import entity.TemperatureAndHumidity;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import entity.*;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import java.nio.charset.Charset;
+import org.springframework.stereotype.Service;
 
+
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+@Service
 public class Client {
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+    //mqtt协议
     private static final String HOST = "tcp://127.0.0.1:1883";//服务器IP:端口
     private static final String CLIENT_ID = "local_client";//客户端唯一标识
     private static final String USERNAME = "idea";
@@ -44,8 +55,41 @@ public class Client {
                 jsonStr = new String(message.getPayload(), Charset.forName("GBK"));
                 System.out.println("json string: " + jsonStr);
                 try {
-                    TemperatureAndHumidity jsonObj = new Gson().fromJson(jsonStr, TemperatureAndHumidity.class);
-                    System.out.println("json object: " + jsonObj);
+                //gson
+                Gson gson = new Gson();
+                Device device = new Device();
+                JsonObject jsonObject = (JsonObject) new JsonParser().parse(jsonStr).getAsJsonObject();
+                String deviceId = jsonObject.get("deviceId").getAsString();
+                String data = jsonObject.get("data").getAsString();
+                int dataType = jsonObject.get("dataType").getAsInt();
+                System.out.println("deviceId:"+deviceId+" data"+data+" dataType"+dataType);
+                mongo m = new mongo();
+                if(dataType == 1){
+                    Measurement measurement = new Measurement();
+                    measurement.setDeviceId(deviceId);
+                    measurement.setTime(df.format(new Date()));
+                    measurement.setValue(data);
+                    System.out.println(measurement);
+                    m.insertMeasurement(measurement, "measurement");
+                }else if(dataType == 2){
+                    Alert alert = new Alert();
+                    alert.setDeviceId(deviceId);
+                    alert.setTime(df.format(new Date()));
+                    alert.setNews(data);
+                    System.out.println(alert);
+                    m.insertAlert(alert, "alert");
+//                    alertService.insert(alert);
+                }
+                else if(dataType == 3){
+                    Status status = new Status();
+                    status.setDeviceId(deviceId);
+                    status.setTime(df.format(new Date()));
+                    status.setStatus(Integer.parseInt(data));
+                    System.out.println(status);
+                    m.insertStatus(status, "status");
+//                    statusService.insert(status);
+                }
+
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }
