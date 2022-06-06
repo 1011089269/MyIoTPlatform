@@ -29,8 +29,11 @@
         </div>
         <br>
         <button id="loginButton" onclick="onLoginClick()">
-            登录 / 注册
+            登录
             <span>Enter</span>
+        </button>
+        <button onclick="jump('register.html')">
+            注册<span> Register</span>
         </button>
         <button onclick="jump('lostPassword.html')">
             忘记密码<span> Lost Password</span>
@@ -65,27 +68,11 @@
             }
         }
     }
-
-    //AJAX 请求 URL 去除末尾额外的时间戳传参
-    $.ajaxSetup({
-        beforeSend: function (jqXHR, settings) {
-            var url = settings.url;
-            if (url.lastIndexOf("?_=") != -1) {
-                settings.url = url.substr(0, url.lastIndexOf("?_="));
-            }
-            if (url.lastIndexOf("&_=") != -1) {
-                settings.url = url.substr(0, url.lastIndexOf("&_="));
-            }
-            //console.log("|||| settings.url", settings.url);
-        }
-    });
-
-
 </script>
 
 <style>
     :root {
-        --BodyHeight: 510px;
+        --BodyHeight: 600px;
     }
 
     body {

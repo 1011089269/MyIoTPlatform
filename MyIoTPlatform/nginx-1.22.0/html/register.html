@@ -1,25 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta charset="UTF-8">
-    <title>注册</title>
-    <script src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <title>物联网云平台注册</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="scripts/util.js"></script>
     <script type="text/javascript" src="scripts/userManage.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/base.css">
 </head>
+
 <body>
-<div>
-    用户名：<input type="text" id="txtRegisterUserName"/>
-    邮箱：<input type="email" id="txtRegisterEmail"/>
-    密码：<input type="password" id="txtRegisterPassword"/>
-    确认密码：<input type="password" id="txtRegisterConfirmPassword"/>
-    年龄：<input type="text" id="txtRegisterAge"/>
-    角色：<select id="selRegisterRole">
-        <option value="0" selected="selected">普通用户</option>
-        <option value="1">管理员</option>
-        <option value="2">开发者</option>
-    </select>
-    <input type="button" id="addUser" value="注册" onclick="onRegisterClick()"/>
-</div>
+    <div id="loginBox">
+        <div id="siteTitle" style="text-align-last: justify">|> 物联网云平台注册</div>
+        <br>
+        <div class="hr"></div>
+        <br>
+        <div class="inputBox">
+            <span>账号：</span>
+            <input id="txtRegisterUserName" class="input username" autofocus="autofocus" placeholder="请在此输入用户名"
+                onkeydown="if(event.keyCode==13) {onRegisterClick()}" />
+        </div>
+        <div class="inputBox">
+            <span>邮箱：</span>
+            <input id="txtRegisterEmail" type="email" class="input username" autofocus="autofocus"
+                placeholder="请在此输入邮箱地址" onkeydown="if(event.keyCode==13) {onRegisterClick()}" />
+        </div>
+        <div class="inputBox">
+            <span>密码：</span>
+            <input id="txtRegisterPassword" type="password" class="input password" placeholder="请在此输入密码"
+                onkeydown="if(event.keyCode==13) {onRegisterClick()}" />
+        </div>
+        <div class="inputBox">
+            <span>确认：</span>
+            <input id="txtRegisterConfirmPassword" type="password" class="input password" placeholder="请在此再次输入密码"
+                onkeydown="if(event.keyCode==13) {onRegisterClick()}" />
+        </div>
+        <div class="inputBox">
+            <span>年龄：</span>
+            <input id="txtRegisterAge" type="number" class="input password" placeholder="请在此输入年龄"
+                onkeydown="if(event.keyCode==13) {onRegisterClick()}" />
+        </div>
+        <div class="inputBox">
+            <span>角色：</span>
+            <select id="selRegisterRole" class="input">
+                <option value="0" selected="selected">普通用户</option>
+                <option value="1">管理员</option>
+                <option value="2">开发者</option>
+            </select>
+        </div>
+        <br>
+        <button id="addUser" onclick="onRegisterClick()">
+            注册
+            <span>Enter</span>
+        </button>
+        <button onclick="jump('index.html')">
+            返回登录 / 注册
+            <span>Back</span>
+        </button>
+        <br>
+    </div>
+
+    <div id="footer">
+        © Copyright
+        <script>
+            document.write(new Date().getFullYear()); //显示今年年份
+        </script>
+        5A 124
+    </div>
+    <!-- <div>
+        用户名：<input type="text" id="txtRegisterUserName" />
+        邮箱：<input type="email" id="txtRegisterEmail" />
+        密码：<input type="password" id="txtRegisterPassword" />
+        确认密码：<input type="password" id="txtRegisterConfirmPassword" />
+        年龄：<input type="text" id="txtRegisterAge" />
+        <input type="button" id="addUser" value="注册" onclick="onRegisterClick()" />
+    </div> -->
 </body>
+
+<script>
+</script>
+
+<style>
+    :root {
+        --BodyHeight: 800px;
+    }
+
+    body {
+        padding-top: calc((100vh - var(--BodyHeight)) / 2);
+        height: calc(100vh - ((100vh - var(--BodyHeight)) / 2));
+    }
+
+    button {
+        width: 100%;
+        padding-left: 12px;
+        margin-top: .5rem;
+    }
+
+    #selRegisterRole {
+        margin-left: -5px;
+    }
+
+    option {
+        background: var(--BgAvg);
+    }
+</style>
+
 </html>
