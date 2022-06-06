@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-    <title>用户中心</title>
+    <title>数据展示</title>
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="scripts/util.js"></script>
     <script type="text/javascript" src="scripts/userManage.js"></script>
@@ -19,8 +19,7 @@
                 style="max-width: 20px; height: 70px; background: url(/images/cloudPlatformIcon.jpeg);    background-size: cover;">
             </div>
             <div class="Card">
-                <span class="CardTitle">用户中心 | </span>
-                <span id="lblLoginState">状态获取中......</span>
+                <span class="CardTitle">数据展示</span>
                 <button id="btnLoginAction" class="RowRight" onclick="onLoginActionClick()">双击退出登录</button>
             </div>
         </div>
@@ -41,31 +40,50 @@
             </div>
 
             <div class="Card">
-                <div class="CardTitleInner">基本信息</div>
-                <hr class="hr">
-                <div class="Row FlexColumn">
-                    <div>
-                        <span class="inputSpan">用户名</span>
-                        <input id="txtUpdateUserName" class="input RowRight CardInput" placeholder="请在此输入用户名" />
-                    </div>
-                    <div>
-                        <span class="inputSpan">邮箱</span>
-                        <input id="txtUpdateEmail" class="input RowRight CardInput" placeholder="请在此输入邮箱" />
-                    </div>
-                    <div>
-                        <span class="inputSpan">年龄</span>
-                        <input id="txtUpdateAge" class="input RowRight CardInput" placeholder="请在此输入年龄" />
-                    </div>
-                    <button id="btnLoginAction2" class="RowLeft Fill" style="margin-top: 12px;"
-                        onclick="onModifyUser()">更新</button>
-                </div>
 
-                <div class="CardTitleInner">安全设置</div>
+                <div class="CardTitleInner">数据展示</div>
                 <hr class="hr">
                 <div class="Row Flex">
-                    <button id="btnLoginAction" class="RowLeft Fill" style="margin-top: 12px;"
-                        onclick="jump('updatePassword.html')">修改密码</button>
+                    <div class="inputBox Fill" style="margin-right: 20px;">
+                        <span style="margin-right: 5px;">选择设备</span>
+                        <select id="selRegisterRole" class="input">
+                            <option value="0" selected="selected">设备1</option>
+                            <option value="1">设备2</option>
+                        </select>
+                    </div>
+                    <div class="inputBox Fill">
+                        <span style="margin-right: 5px;">选择数据源</span>
+                        <select id="selRegisterRole" class="input">
+                            <option value="0" selected="selected">实时（来自 MQTT）</option>
+                            <option value="1">实时（来自 MongoDB）</option>
+                        </select>
+                    </div>
                 </div>
+                <button id="btnLoginAction" class="Fill" style="margin-top: 12px;" onclick="">查看数据</button>
+                <div class="Card" style="margin:0; margin-top: 20px;"></div>
+
+                <div class="CardTitleInner">设备列表</div>
+                <hr class="hr">
+                <div class="Row FlexColumn">
+                    <div class="List Card">
+                        <table id="tbUserList" class="list">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>设备名称</th>
+                                    <th>数据更新时间</th>
+                                    <th>在线 / 离线</th>
+                                    <th>数据类型</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
 
             </div>
         </div>

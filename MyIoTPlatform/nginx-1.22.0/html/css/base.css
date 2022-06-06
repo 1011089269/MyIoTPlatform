@@ -13,7 +13,22 @@
     font-weight: bold;
 }
 
+table {
+    width: 100%;
+}
 
+.List {
+    margin-bottom: 25px;
+    padding: 25px;
+}
+
+th {
+    border-bottom: 3px white solid;
+}
+
+option {
+    background: var(--BgAvg);
+}
 
 
 .RowRight {
