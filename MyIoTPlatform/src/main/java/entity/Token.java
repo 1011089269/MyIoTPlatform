@@ -34,7 +34,12 @@ public class Token {
     public Token(String value) {
         String[] parameters = value.split("-");
         if (parameters.length != 3) {
-            throw new IllegalArgumentException("invalid token value");
+//            throw new IllegalArgumentException("invalid token value");
+            id = 0;
+            type = null;
+            uuid = "";
+            this.value = String.valueOf(id) + "-" + type + "-" + uuid;
+            return;
         }
         id = Integer.parseInt(parameters[0]);
         type = Type.valueOf(parameters[1]);
