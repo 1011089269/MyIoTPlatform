@@ -133,7 +133,7 @@ public class UserController {
 
     @PostMapping("/changepwd")
     @ResponseBody
-    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
+    @FreeToken
     public Result changepwd(String name, String email) {
 
         System.out.println("获取待重置密码的用户信息：" + name + email);
