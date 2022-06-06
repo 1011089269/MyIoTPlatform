@@ -107,6 +107,32 @@ function onUpdateUser() {
     });
 }
 
+function onModifyUser() {
+    const userName = $("#txtUpdateUserName").val();
+    const email = $("#txtUpdateEmail").val();
+    const age = Number($("#txtUpdateAge").val());
+    if (id && !(userName || password || email || age)) {
+        alertBlur("请保证更新参数不为空");
+        return;
+    }
+    $.ajax({
+        url: URL_HEAD + "modify",
+        type: "put",
+        headers: {
+            "tokenValue":getTokenValue(),
+            "name": userName,
+            "email": email,
+            "age": age },
+        dataType: "json",
+        success: function (result) {
+            alertBlur(result.msg);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            showError("更新用户信息异常", xhr, textStatus, errorThrown);
+        }
+    });
+}
+
 function onDeleteUser() {
     const id = Number($("#txtDeleteId").val());
     const userName = $("#txtDeleteUserName").val();

@@ -50,34 +50,34 @@ public class UserController {
 
     @PostMapping("/login/check")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public Result checkLogin(String tokenValue) {
         return userManageService.checkLogin(tokenValue);
     }
 
     @PostMapping("/logout")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public Result logout(String tokenValue) {
         return userManageService.logout(tokenValue);
     }
     @GetMapping("/modify/info")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.ADMIN})
     public Result modifyUserInfo() {
         return new Result();
     }
 
     @GetMapping("/manage")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.ADMIN})
     public Result manageUsers() {
         return new Result();
     }
 
     @GetMapping("/update/version")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.ADMIN})
     public Result updateSoftwareVersion() {
         return new Result();
     }
@@ -85,7 +85,7 @@ public class UserController {
     //@RequestMapping(value="/add",method = RequestMethod.POST)
     @PostMapping("/add")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.ADMIN})
     public Result addUser(User user) {
         System.out.println("获取待新增用户信息：" + user);
         return userManageService.addUser(user);
@@ -94,15 +94,29 @@ public class UserController {
     @ApiOperation(value = "查找用户", tags = {"查找用户tag"}, notes = "所有参数均为选填，若都不填则找出所有用户")
     @GetMapping("/find")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.ADMIN})
     public Result findUser(User user) {
         System.out.println("获取待查询用户信息" + user);
         return userManageService.findUser(user);
     }
 
+    @PutMapping("/modify")
+    @ResponseBody
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
+    public Result updateUserInfo(String tokenvalue, String name, String email, int age) {
+        User user = new User();
+        Token token = new Token(tokenvalue);
+        user.setId(token.getId());
+        user.setAge(age);
+        user.setEmail(email);
+        user.setName(name);
+        System.out.println("获取待更新用户信息：" + user);
+        return userManageService.updateUserInfo(user);
+    }
+
     @PutMapping("/update")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.ADMIN})
     public Result updateUserInfo(User user) {
         System.out.println("获取待更新用户信息：" + user);
         return userManageService.updateUserInfo(user);
@@ -110,7 +124,7 @@ public class UserController {
 
     @DeleteMapping("/delete")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.ADMIN})
     public Result deleteUser(User user) {
 
         System.out.println("获取待删除用户信息：" + user);
@@ -119,7 +133,7 @@ public class UserController {
 
     @PostMapping("/changepwd")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public Result changepwd(User user) {
 
         System.out.println("获取待重置密码的用户信息：" + user);
@@ -128,7 +142,7 @@ public class UserController {
 
     @PostMapping("/updatepwd")
     @ResponseBody
-    @FreeToken
+    @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public Result updatepwd(String tokenvalue , String oldpwd , String newpwd) {
         Token token = new Token(tokenvalue);
 
