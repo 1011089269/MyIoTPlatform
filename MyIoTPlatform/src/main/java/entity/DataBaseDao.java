@@ -7,8 +7,8 @@ public interface DataBaseDao<T> {
     public void createCollection();
     //插入数据
     public void insert(T entity);
-    //设备id查询
-    public T findByDeviceId(String deviceId);
+    //设备最后一个id查询
+    public T findLastByDeviceId(String deviceId);
     //设备id指定位置查询
     public List<T> findListByDeviceId(String deviceId, int skip, int limit);
     //时间查询

@@ -17,7 +17,7 @@ public class Device implements Serializable {
 
     private String time;
 
-    private int dataType;
+    private int dataType;//Measurement=1; Alert =2; Status=3
 
     public String getId() {
         return id;
