@@ -171,21 +171,29 @@ public class UserManageService {
 
 
     //重置密码
-    public Result ChangePassword(User user) {
+    public Result ChangePassword(String name, String semail) {
         Result result = new Result();
+        User user = new User();
+        user.setName(name);
         List<User> users = userDao.findUser(user);
         if (users == null || users.isEmpty()) {
-            result.setStatus(1);
+            result.setStatus(0);
             result.setMsg("此用户不存在，请先进行注册");
             return result;
         }
         User foundUser = users.get(0);
         String email = foundUser.getEmail();
+        if (!semail.equals(email)) {
+            result.setStatus(0);
+            result.setMsg("邮箱错误");
+            return result;
+        }
         String newPassword = getPassWordOne(8);
         foundUser.setPassword(newPassword);
         System.out.println("SYC"+foundUser.getPassword());
         int temp = userDao.updateUserInfo(foundUser);
         sendEmail(email, newPassword);
+        result.setStatus(1);
         result.setMsg("邮件已发送，请重置密码!");
         return result;
     }

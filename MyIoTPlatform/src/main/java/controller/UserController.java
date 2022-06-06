@@ -134,10 +134,10 @@ public class UserController {
     @PostMapping("/changepwd")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public Result changepwd(User user) {
+    public Result changepwd(String name, String email) {
 
-        System.out.println("获取待重置密码的用户信息：" + user);
-        return userManageService.ChangePassword(user);
+        System.out.println("获取待重置密码的用户信息：" + name + email);
+        return userManageService.ChangePassword(name, email);
     }
 
     @PostMapping("/updatepwd")

@@ -352,20 +352,35 @@ function onVersionUpdateClick() {
     });
 }
 
-function onChangePassword() {
+function forgetmm(){
     const userName = $("#txtLoginName").val();
     if (!userName) {
         alert("用户名不得为空");
+        return;
+    }
+    window.localStorage.setItem(ITEM_KEY_TOKEN_VALUE, userName);
+    jump('lostPassword.html')
+}
+
+function onChangePassword() {
+    const userName = getTokenValue();
+    const email = $("#txtLoginEmail").val();
+    if (!email) {
+        alert("邮箱不得为空");
         return;
     }
     $.ajax({
         url: URL_HEAD + "changepwd",
         //通过type来判断调用哪个方法
         type: "post",
-        data: { "name": userName },
+        data: { "name": userName,
+            "email":email },
         dataType: "json",
         success: function (result) {
             alert(result.msg);
+            if(result.status == 1){
+                jump(index.html);
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("版本更新异常", xhr, textStatus, errorThrown);
