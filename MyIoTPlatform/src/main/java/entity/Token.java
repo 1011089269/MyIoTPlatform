@@ -39,6 +39,7 @@ public class Token {
         id = Integer.parseInt(parameters[0]);
         type = Type.valueOf(parameters[1]);
         uuid = parameters[2];
+        this.value = String.valueOf(id) + "-" + type + "-" + uuid;
     }
 
     public Token(Type type, int id) {
