@@ -44,8 +44,8 @@ public class Token {
     public Token(Type type, int id) {
         this.type = type;
         this.id = id;
-        uuid = UUID.randomUUID().toString();
-        value = String.valueOf(id) + '-' + type + '-' + uuid;
+        uuid = UUID.randomUUID().toString().replace("-", "");
+        value = String.valueOf(id) + "-" + type + "-" + uuid;
     }
 
     public Type getType() {
