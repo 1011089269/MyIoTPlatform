@@ -6,21 +6,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <title>数据展示</title>
+
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="scripts/deviceManage.js"></script>
     <script type="text/javascript" src="scripts/util.js"></script>
     <script type="text/javascript" src="scripts/userManage.js"></script>
+
     <link type="text/css" rel="stylesheet" href="css/base.css">
 </head>
 
-<body onload="onLoadUserCenter()">
+<body onload="">
     <div class="Flex" id="container">
         <div class="Row Flex">
-            <div class="Card"
-                style="max-width: 20px; height: 70px; background: url(/images/cloudPlatformIcon.jpeg);    background-size: cover;">
+            <div class="Card" style="max-width: 20px; height: 70px; background: url(/images/cloudPlatformIcon.jpeg);    background-size: cover;">
             </div>
             <div class="Card">
                 <span class="CardTitle">数据展示</span>
-                <button id="btnLoginAction" class="RowRight" onclick="onLoginActionClick()">双击退出登录</button>
+                <button id="LoginOut" class="RowRight" onclick="onLoginActionClick()">双击退出登录</button>
             </div>
         </div>
         <div class="Row Flex">
@@ -46,7 +48,7 @@
                 <div class="Row Flex" style="margin-bottom: 0">
                     <div class="inputBox Fill" style="margin-right: 20px;">
                         <span style="margin-right: 10px;">选择设备</span>
-                        <select id="selRegisterRole" class="input">
+                        <select id="setDevice" class="input">
                             <option value="0" selected="selected">设备1</option>
                             <option value="1">设备2</option>
                         </select>
@@ -62,24 +64,22 @@
                 <div class="Row Flex" style="margin-bottom: 0">
                     <div class="inputBox Fill" style="margin-right: 20px;">
                         <span style="margin-right: 10px;    padding-top: 10px;">起始时间</span>
-                        <input id="txtInsertDeviceTime" type="datetime" class="input RowRight CardInput"
-                            placeholder="请在此输入时间" />
+                        <input id="txtBeginDeviceTime" type="datetime" class="input RowRight CardInput" placeholder="请在此输入时间" />
                     </div>
                     <div class="inputBox Fill">
                         <span style="margin-right: 10px; padding-top: 10px;">结束时间</span>
-                        <input id="txtInsertDeviceTime" type="datetime" class="input RowRight CardInput"
-                            placeholder="请在此输入时间" />
+                        <input id="txtEndDeviceTime" type="datetime" class="input RowRight CardInput" placeholder="请在此输入时间" />
                     </div>
                 </div>
-                <button id="btnLoginAction" class="Fill" style="margin-top: 12px;" onclick="">查看数据</button>
+                <button id="findData" class="Fill" style="margin-top: 12px;" onclick="">查看数据</button>
                 <div class="Card" style="margin:20px 0; padding: 20px;">Logs</div>
-                <button id="btnLoginAction" class="Fill" style="margin: 0 0 20px 0;" onclick="">删除该设备所有历史数据</button>
+                <button id="deleteData" class="Fill" style="margin: 0 0 20px 0;" onclick="">删除该设备所有历史数据</button>
             </div>
         </div>
         <div class="Row Flex">
             <div class="Card">
                 <span class="CardTitle">普通用户权限</span>
-                <button id="btnModifyUserInfo" class="RowRight" onclick="jump('userCenter.html')">修改信息</button>
+                <button id="ModifyUserInfo" class="RowRight" onclick="jump('userCenter.html')">修改信息</button>
             </div>
             <div class="Card">
                 <span class="CardTitle">管理员权限</span>
@@ -99,5 +99,9 @@
         flex-direction: column;
     }
 </style>
+
+<script>
+    getAllDevice();
+</script>
 
 </html>

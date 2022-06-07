@@ -1,38 +1,65 @@
-const URL_HEAD = "/api/device/";
+const URL_HEAD_DEVICE = "/api/device/";
+
 function onDeviceManageLoad() {
     onFindDevice();
 }
+
+
 
 function onAddDevice() {
     const name = $("#txtInsertDeviceName").val();
     const dataType = $("#dataType").val();
     $.ajax({
-        url: URL_HEAD + "add",
+        url: URL_HEAD_DEVICE + "add",
         type: "post",
-        data: { "name": name, "dataType": dataType},
+        data: { "name": name, "dataType": dataType },
         dataType: "json",
-        success: function (result) {
+        success: function(result) {
             alertBlur(result)
 
         },
-        error: function (xhr, textStatus, errorThrown) {
+        error: function(xhr, textStatus, errorThrown) {
             showError("新增用户异常", xhr, textStatus, errorThrown);
         }
     });
     onFindDevice();
 }
 
+function getAllDevice() {
+    $.ajax({
+        url: URL_HEAD_DEVICE + "find",
+        type: "get",
+        dataType: "json",
+        success: function(result) {
+            console.log(result);
+            var deviceSelectList = document.getElementById("setDevice");
+            var optionStr = "";
+            if (result.data != null) {
+                for (var i = 0; i < result.data.length; i++) {
+                    optionStr = optionStr + '<option value="' + i +
+                        '">' + result.data[i].name + ' | ' + result.data[i].id + '</option>'
+                }
+                deviceSelectList.innerHTML = optionStr;
+            }
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            showError("查询用户异常", xhr, textStatus, errorThrown);
+        }
+    });
+}
+
+
 function onFindDevice() {
     $.ajax({
-        url: URL_HEAD + "find",
+        url: URL_HEAD_DEVICE + "find",
         type: "get",
         data: {},
         dataType: "json",
-        success: function (result) {
+        success: function(result) {
             clearDeviceList();
             findDeviceList(result.data);
         },
-        error: function (xhr, textStatus, errorThrown) {
+        error: function(xhr, textStatus, errorThrown) {
             showError("查询用户异常", xhr, textStatus, errorThrown);
         }
     });
@@ -65,14 +92,14 @@ function clearDeviceList() {
 function onDeleteDevice() {
     const id = $("#txtDeviceDeleteId").val();
     $.ajax({
-        url: URL_HEAD + "delete",
+        url: URL_HEAD_DEVICE + "delete",
         type: "delete",
         data: { "id": id },
         dataType: "json",
-        success: function (result) {
+        success: function(result) {
             alertBlur(result)
         },
-        error: function (xhr, textStatus, errorThrown) {
+        error: function(xhr, textStatus, errorThrown) {
             showError("删除用户信息异常", xhr, textStatus, errorThrown);
         }
     });
@@ -85,14 +112,14 @@ function onUpdateDevice() {
     const dataType = $("#txtUpdateDataType").val();
 
     $.ajax({
-        url: URL_HEAD + "update",
+        url: URL_HEAD_DEVICE + "update",
         type: "put",
-        data: { "id": id, "name": name, "dataType": dataType},
+        data: { "id": id, "name": name, "dataType": dataType },
         dataType: "json",
-        success: function (result) {
+        success: function(result) {
             alertBlur(result)
         },
-        error: function (xhr, textStatus, errorThrown) {
+        error: function(xhr, textStatus, errorThrown) {
             showError("更新用户信息异常", xhr, textStatus, errorThrown);
         }
     });
