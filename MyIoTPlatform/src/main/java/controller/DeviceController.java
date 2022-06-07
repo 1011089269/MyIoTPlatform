@@ -114,45 +114,69 @@ public class DeviceController {
     @PostMapping("/findDataById")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public String findDataById(String deviceId) {
+    public Result findDataById(String deviceId) {
         Gson gson = new Gson();
         Device device = service.findById(deviceId);
         int type = device.getDataType();
         String json = null;
+        Result result = new Result();
+
+
         //判断数据类型并查找
         if(type == 1){
             json = gson.toJson(measurementService.findListByDeviceId(deviceId,0,100));
+            result.setData(measurementService.findListByDeviceId(deviceId,0,100));
+            result.setStatus(1);
+            return result;
         }else if(type == 2){
             json = gson.toJson(alertService.findListByDeviceId(deviceId,0,100));
+            result.setData(alertService.findListByDeviceId(deviceId,0,100));
+            result.setStatus(2);
+            return result;
         }
         else if(type == 3){
             json = gson.toJson(statusService.findListByDeviceId(deviceId,0,100));
+            result.setData(statusService.findListByDeviceId(deviceId,0,100));
+            result.setStatus(3);
+            return result;
         }
 
         System.out.println("设备ID的全部历史数据："+json);
-        return json;
+        return result;
+
     }
 
     //查找某设备ID的最新数据
     @PostMapping("/findLastByDeviceId")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public String findLastByDeviceId(String deviceId) {
+    public Result findLastByDeviceId(String deviceId) {
         Gson gson = new Gson();
         Device device = service.findById(deviceId);
         int type = device.getDataType();
         String json = null;
+        Result result = new Result();
         //判断数据类型并查找
         if(type == 1){
             json = gson.toJson(measurementService.findLastByDeviceId(deviceId));
+            result.setData(measurementService.findLastByDeviceId(deviceId));
+            result.setStatus(1);
+            return result;
         }else if(type == 2){
             json = gson.toJson(alertService.findLastByDeviceId(deviceId));
+            result.setData(alertService.findLastByDeviceId(deviceId));
+            result.setStatus(2);
+            return result;
         }
         else if(type == 3){
             json = gson.toJson(statusService.findLastByDeviceId(deviceId));
+            result.setData(statusService.findLastByDeviceId(deviceId));
+            result.setStatus(3);
+            return result;
         }
         System.out.println("查找设备ID的最新数据："+json);
-        return json;
+
+        return result;
     }
 
     //查找某设备ID的时间段数据
@@ -199,6 +223,7 @@ public class DeviceController {
     @ResponseBody
     @Authority(role = {Token.Type.DEVELOP})
     public void deleteDataById(String deviceId) {
+        System.out.println("*-*******************************************");
         Device device = service.findById(deviceId);
         int type = device.getDataType();
         //判断数据类型并查找
@@ -210,5 +235,6 @@ public class DeviceController {
         else if(type == 3){
             statusService.deleteByDeviceId(deviceId);
         }
+        System.out.println("*-*******************************************");
     }
 }

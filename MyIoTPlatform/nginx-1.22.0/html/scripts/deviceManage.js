@@ -48,34 +48,18 @@ function findDeviceData() {
             var dataSource = document.getElementById("deviceSource").value;
             var str = "";
             console.log(dataSource);
-            if (dataSource === 1) {
-                for (var i = 0; i < result.length; i++) {
-                    // if (result[i].value != undefined) {
-                    //     str = str + result[i].id + " | " + result[i].deviceId +
-                    //         " | " + result[i].time + " | " + result[i].value;
-                    // } else if (result[i].news != undefined) {
-                    str = str + result[i].id + " | " + result[i].deviceId +
-                        " | " + result[i].time + " | " + result[i].news;
-                    // } else {
-                    //     str = str + result[i].id + " | " + result[i].deviceId +
-                    //         " | " + result[i].time + " | " + result[i].status;
-                    // }
+            var rs = result.data;
+            for (let i = 0; i < rs.length; i++) {
+                let r = rs[i];
+                if (result.status == 1){
+                    str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value"+r.value;
+                }else if(result.status == 2){
+                    str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value"+r.news;
+                }else if(result.status == 3){
+                    str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value"+r.status;
                 }
-
-            } else {
-                // if (result.value != undefined) {
-                //     str = str + result.id + " | " + result.deviceId +
-                //         " | " + result.time + " | " + result.value;
-                // } else if (result.news != undefined) {
-                str = str + result.id + " | " + result.deviceId +
-                    " | " + result.time + " | " + result.news;
-                // } else {
-                //     str = str + result.id + " | " + result.deviceId +
-                //         " | " + result.time + " | " + result.status;
-                // }
-
             }
-            historyBox.innerText(str);
+            console.log(str);
 
         },
         error: function(xhr, textStatus, errorThrown) {
@@ -88,7 +72,7 @@ function deleteDeviceAllHistory() {
     var id = document.getElementById("setDevice").value;
     console.log(id);
     $.ajax({
-        url: URL_HEAD_DEVICE + "deleteDataByDeviceId",
+        url: URL_HEAD_DEVICE + "deleteDataById",
         type: "post",
         dataType: "json",
         data: {
