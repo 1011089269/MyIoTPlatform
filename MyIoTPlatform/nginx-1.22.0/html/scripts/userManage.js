@@ -116,8 +116,7 @@ function onModifyUser() {
     const userName = $("#txtUpdateUserName").val();
     const email = $("#txtUpdateEmail").val();
     const age = Number($("#txtUpdateAge").val());
-    const role = Number($("#txtUpdateRole").val());
-    if (!(userName || email || age || role)) {
+    if (!(userName || email || age)) {
         alertBlur("请保证更新参数不为空");
         return;
     }
@@ -128,8 +127,7 @@ function onModifyUser() {
             "tokenValue": getTokenValue(),
             "name": userName,
             "email": email,
-            "age": age,
-            "role": role
+            "age": age
         },
         dataType: "json",
         success: function (result) {
