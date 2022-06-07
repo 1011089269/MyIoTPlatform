@@ -49,18 +49,29 @@ function findDeviceData() {
             var str = "";
             console.log(dataSource);
             var rs = result.data;
-            for (let i = 0; i < rs.length; i++) {
-                let r = rs[i];
+            if(dataSource == 1){
+                for (let i = 0; i < rs.length; i++) {
+                    let r = rs[i];
+                    if (result.status == 1){
+                        str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value:"+r.value;
+                    }else if(result.status == 2){
+                        str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value:"+r.news;
+                    }else if(result.status == 3){
+                        str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value:"+r.status;
+                    }
+                }
+            }else{
                 if (result.status == 1){
-                    str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value"+r.value;
+                    str = str +"\n"+"id:"+rs.id+" time:"+ rs.time+" value:"+rs.value;
                 }else if(result.status == 2){
-                    str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value"+r.news;
+                    str = str +"\n"+"id:"+rs.id+" time:"+ rs.time+" value:"+rs.news;
                 }else if(result.status == 3){
-                    str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value"+r.status;
+                    str = str +"\n"+"id:"+rs.id+" time:"+ rs.time+" value:"+rs.status;
                 }
             }
-            console.log(str);
 
+            console.log(str);
+            historyBox.append(str+"\n");
         },
         error: function(xhr, textStatus, errorThrown) {
             showError("查询用户异常", xhr, textStatus, errorThrown);
