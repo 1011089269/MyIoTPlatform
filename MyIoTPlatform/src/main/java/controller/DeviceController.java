@@ -194,21 +194,25 @@ public class DeviceController {
     @PostMapping("/findListByPeriod")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public String findListByPeriod(String deviceId, String begin, String end) {
+    public Result findListByPeriod(String deviceId, String begin, String end) {
         Gson gson = new Gson();
+        Result result = new Result();
         Device device = service.findById(deviceId);
         int type = device.getDataType();
         String json = null;
         //判断数据类型并查找
         if(type == 1){
             json = gson.toJson(measurementService.findListByPeriod(deviceId,begin,end));
+            result.setData(measurementService.findListByPeriod(deviceId,begin,end));
         }else if(type == 2){
             json = gson.toJson(alertService.findListByPeriod(deviceId,begin,end));
+            result.setData(alertService.findListByPeriod(deviceId,begin,end));
         }
         else if(type == 3){
             json = gson.toJson(statusService.findListByPeriod(deviceId,begin,end));
+            result.setData(statusService.findListByPeriod(deviceId,begin,end));
         }
-        return json;
+        return result;
     }
 
     //删除某条数据根据其id以及deviceId
