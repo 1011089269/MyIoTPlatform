@@ -61,6 +61,12 @@ public class DeviceController {
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public boolean updateDevice(Device device) {
         //name,,dataType,id\time都写
+        Device d = service.findById(device.getId());
+        System.out.println("deviceUpdate:"+device.getName());
+        System.out.println("Update:"+d.getName());
+        if("".equals(device.getName())){
+            device.setName(d.getName());
+        }
         service.update(device);
         return true;
     }
@@ -193,8 +199,16 @@ public class DeviceController {
     @ResponseBody
     @Authority(role = {Token.Type.DEVELOP})
     public void deleteDataById(String deviceId) {
-        measurementService.deleteByDeviceId(deviceId);
-        alertService.deleteByDeviceId(deviceId);
-        statusService.deleteByDeviceId(deviceId);
+        Device device = service.findById(deviceId);
+        int type = device.getDataType();
+        //判断数据类型并查找
+        if(type == 1){
+            measurementService.deleteByDeviceId(deviceId);
+        }else if(type == 2){
+            alertService.deleteByDeviceId(deviceId);
+        }
+        else if(type == 3){
+            statusService.deleteByDeviceId(deviceId);
+        }
     }
 }

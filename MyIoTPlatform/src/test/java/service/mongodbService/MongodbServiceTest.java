@@ -140,7 +140,7 @@ class MongodbServiceTest {
 
     @Test
     void deleteByDeviceId() {
-        alertService.deleteByDeviceId("629df0e5d5a43a7080b8e13a");
+        alertService.deleteByDeviceId("629e328e7def37676cd15d52");
 
     }
 

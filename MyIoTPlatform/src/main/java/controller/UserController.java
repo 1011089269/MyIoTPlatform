@@ -27,11 +27,11 @@ public class UserController {
     private final UserManageService userManageService;
     public UserController(UserManageService userManageService) throws MqttException {
         this.userManageService = userManageService;
-//        Client client = new Client();
-//        client.connect();
-//        String topic = "test";
-//        //订阅
-//        client.subscribe(topic,0);
+        Client client = new Client();
+        client.connect();
+        String topic = "test";
+        //订阅
+        client.subscribe(topic,0);
     }
 
     @PostMapping("/login")
