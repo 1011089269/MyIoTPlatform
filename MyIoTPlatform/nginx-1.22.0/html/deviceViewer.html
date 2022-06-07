@@ -55,7 +55,7 @@
                     </div>
                     <div class="inputBox Fill">
                         <span style="margin-right: 10px;">选择数据源</span>
-                        <select id="selRegisterRole" class="input">
+                        <select id="deviceSource" class="input">
                             <option value="0" selected="selected">实时（来自 MQTT）</option>
                             <option value="1">历史（来自 MongoDB）</option>
                         </select>
@@ -71,7 +71,7 @@
                         <input id="txtEndDeviceTime" type="datetime" class="input RowRight CardInput" placeholder="请在此输入时间" />
                     </div>
                 </div>
-                <button id="findData" class="Fill" style="margin-top: 12px;" onclick="">查看数据</button>
+                <button id="findData" class="Fill" style="margin-top: 12px;" onclick="findDeviceData()">查看数据</button>
                 <div class="Card" style="margin:20px 0; padding: 20px;">Logs</div>
                 <button id="deleteData" class="Fill" style="margin: 0 0 20px 0;" onclick="">删除该设备所有历史数据</button>
             </div>

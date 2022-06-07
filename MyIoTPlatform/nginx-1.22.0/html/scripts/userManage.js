@@ -243,6 +243,8 @@ function onLoadUserCenter() {
         success: function (result) {
             $("#lblLoginState").text(result.msg);
             if (result.status === 0) {
+                let user = result.data[0];
+
                 $("#btnLoginAction").text("双击退出登录");
                 console.log(1);
             } else {

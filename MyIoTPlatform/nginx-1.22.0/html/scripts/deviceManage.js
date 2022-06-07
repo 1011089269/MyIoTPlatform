@@ -14,15 +14,50 @@ function onAddDevice() {
         type: "post",
         data: { "name": name, "dataType": dataType },
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             alertBlur(result)
 
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("新增用户异常", xhr, textStatus, errorThrown);
         }
     });
     onFindDevice();
+}
+
+function findDeviceData() {
+    var id = document.getElementById("setDevice").value;
+    var dataSource = document.getElementById("deviceSource").value;
+    console.log(id, dataSource);
+    var dataSourceURL;
+    if (dataSource == 0) {
+        dataSourceURL = "findLastByDeviceId";
+    } else {
+        dataSourceURL = "findDataById";
+    }
+    $.ajax({
+        url: URL_HEAD_DEVICE + dataSourceURL,
+        type: "post",
+        dataType: "json",
+        data: {
+            deviceId: id
+        },
+        success: function (result) {
+            console.log(result);
+            // var deviceSelectList = document.getElementById("setDevice");
+            // var optionStr = "";
+            // if (result.data != null) {
+            //     for (var i = 0; i < result.data.length; i++) {
+            //         optionStr = optionStr + '<option value="' + result.data[i].id +
+            //             '">' + result.data[i].name + ' | ' + result.data[i].id + '</option>'
+            //     }
+            //     deviceSelectList.innerHTML = optionStr;
+            // }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            showError("查询用户异常", xhr, textStatus, errorThrown);
+        }
+    });
 }
 
 function getAllDevice() {
@@ -30,19 +65,19 @@ function getAllDevice() {
         url: URL_HEAD_DEVICE + "find",
         type: "get",
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             console.log(result);
             var deviceSelectList = document.getElementById("setDevice");
             var optionStr = "";
             if (result.data != null) {
                 for (var i = 0; i < result.data.length; i++) {
-                    optionStr = optionStr + '<option value="' + i +
+                    optionStr = optionStr + '<option value="' + result.data[i].id +
                         '">' + result.data[i].name + ' | ' + result.data[i].id + '</option>'
                 }
                 deviceSelectList.innerHTML = optionStr;
             }
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("查询用户异常", xhr, textStatus, errorThrown);
         }
     });
@@ -55,11 +90,11 @@ function onFindDevice() {
         type: "get",
         data: {},
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             clearDeviceList();
             findDeviceList(result.data);
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("查询用户异常", xhr, textStatus, errorThrown);
         }
     });
@@ -96,10 +131,10 @@ function onDeleteDevice() {
         type: "delete",
         data: { "id": id },
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             alertBlur(result)
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("删除用户信息异常", xhr, textStatus, errorThrown);
         }
     });
@@ -116,10 +151,10 @@ function onUpdateDevice() {
         type: "put",
         data: { "id": id, "name": name, "dataType": dataType },
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             alertBlur(result)
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("更新用户信息异常", xhr, textStatus, errorThrown);
         }
     });

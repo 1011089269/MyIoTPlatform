@@ -91,8 +91,12 @@ public class UserManageService {
         Result result = new Result();
         Token token = new Token(tokenValue);
         if (tokenManager.checkToken(token)) {
+            User user = new User();
+            user.setId(token.getId());
+            List<User> users = userDao.findUser(user);
             result.setStatus(0);
             result.setMsg(token.getType().getName() + "，已登录");
+            result.setData(users);
         } else {
             result.setStatus(1);
             result.setMsg("未登录");
