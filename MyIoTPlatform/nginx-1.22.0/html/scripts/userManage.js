@@ -19,7 +19,7 @@ function onAddUser() {
     $.ajax({
         url: URL_HEAD + "add",
         type: "post",
-        data: { "name": userName, "password": password, "email": email, "age": age, "role":role },
+        data: { "name": userName, "password": password, "email": email, "age": age, "role": role },
         dataType: "json",
         success: function (result) {
             alertBlur(result.msg);
@@ -44,7 +44,7 @@ function findUser(id, userName, email, age, role) {
     $.ajax({
         url: URL_HEAD + "find",
         type: "get",
-        data: { "id": id, "name": userName, "email": email, "age": age, "role":role },
+        data: { "id": id, "name": userName, "email": email, "age": age, "role": role },
         dataType: "json",
         success: function (result) {
             clearUserList();
@@ -57,7 +57,7 @@ function findUser(id, userName, email, age, role) {
 }
 
 function findAllUser() {
-    findUser(0, null, null, 0,0);
+    findUser(0, null, null, 0, 0);
 }
 
 function findUserList(users) {
@@ -93,14 +93,14 @@ function onUpdateUser() {
     const password = $("#txtUpdatePassword").val();
     const age = Number($("#txtUpdateAge").val());
     const role = Number($("#txtUpdateRole").val());
-    if (id && !(userName || password || email || age ||role)) {
+    if (id && !(userName || password || email || age || role)) {
         alertBlur("请保证更新参数不为空");
         return;
     }
     $.ajax({
         url: URL_HEAD + "update",
         type: "put",
-        data: { "id": id, "name": userName, "password": password, "email": email, "age": age, "role":role},
+        data: { "id": id, "name": userName, "password": password, "email": email, "age": age, "role": role },
         dataType: "json",
         success: function (result) {
             alertBlur(result.msg);
@@ -117,18 +117,20 @@ function onModifyUser() {
     const email = $("#txtUpdateEmail").val();
     const age = Number($("#txtUpdateAge").val());
     const role = Number($("#txtUpdateRole").val());
-    if (!(userName || email || age ||role)) {
+    if (!(userName || email || age || role)) {
         alertBlur("请保证更新参数不为空");
         return;
     }
     $.ajax({
         url: URL_HEAD + "modify",
         type: "put",
-        data: { "tokenValue": getTokenValue(),
+        data: {
+            "tokenValue": getTokenValue(),
             "name": userName,
             "email": email,
             "age": age,
-            "role":role},
+            "role": role
+        },
         dataType: "json",
         success: function (result) {
             alertBlur(result.msg);
@@ -148,7 +150,7 @@ function onDeleteUser() {
     $.ajax({
         url: URL_HEAD + "delete",
         type: "delete",
-        data: { "id": id, "name": userName, "email": email, "age": age ,"role":role},
+        data: { "id": id, "name": userName, "email": email, "age": age, "role": role },
         dataType: "json",
         success: function (result) {
             alertBlur(result.msg);
@@ -188,7 +190,7 @@ function onLoginClick() {
                 window.location.href = "register.html";
             } else if (result.status === 3) {
                 //登录成功，保存token
-                document.cookie="tokenValue="+result.data;
+                document.cookie = "tokenValue=" + result.data;
                 window.localStorage.setItem(ITEM_KEY_TOKEN_VALUE, result.data);
                 window.location.href = "userCenter.html";
             }
@@ -217,7 +219,7 @@ function onRegisterClick() {
 
     const email = $("#txtRegisterEmail").val();
     const age = Number($("#txtRegisterAge").val());
-    const role = Number($("#selRegisterRole").val());
+    const role = Number($("#selRegisterRole").val()) + 1;
 
     // alertBlur("userName: " + userName + ", registerPassword: " + registerPassword + ", email: " + email + ", age: " + age + ", role: " + role);
 
@@ -362,7 +364,7 @@ function onVersionUpdateClick() {
     });
 }
 
-function forgetmm(){
+function forgetmm() {
     const userName = $("#txtLoginName").val();
     if (!userName) {
         alert("用户名不得为空");
@@ -383,12 +385,14 @@ function onChangePassword() {
         url: URL_HEAD + "changepwd",
         //通过type来判断调用哪个方法
         type: "post",
-        data: { "name": userName,
-            "email":email },
+        data: {
+            "name": userName,
+            "email": email
+        },
         dataType: "json",
         success: function (result) {
             alert(result.msg);
-            if(result.status == 1){
+            if (result.status == 1) {
                 jump('index.html');
             }
         },
@@ -406,7 +410,7 @@ function updatepwd() {
     }
     const password1 = $("#txtLoginPwd1").val();
     const password2 = $("#txtLoginPwd2").val();
-    if (password1!=password2) {
+    if (password1 != password2) {
         alert("请确保两次输入的新密码一致");
         return;
     }
@@ -422,7 +426,7 @@ function updatepwd() {
         dataType: "json",
         success: function (result) {
             alert(result.msg);
-            if(result.status == 1){
+            if (result.status == 1) {
                 jump('userCenter.html');
             }
         },

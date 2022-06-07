@@ -26,7 +26,7 @@ public class TokenManager {
      */
     public Token createToken(int id, Token.Type type) {
         Token token = new Token(type, id);
-        redisService.set(token.getUuid(), token.getValue(), 600);
+        redisService.set(token.getUuid(), token.getValue(), 6000);
         return token;
     }
 
