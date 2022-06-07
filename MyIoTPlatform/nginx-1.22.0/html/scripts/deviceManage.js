@@ -15,7 +15,7 @@ function onAddDevice() {
         data: { "name": name, "dataType": dataType },
         dataType: "json",
         success: function (result) {
-            alertBlur(result)
+            alertBlur(result.msg)
 
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -73,6 +73,10 @@ function findDeviceData() {
             deviceId: id, begin:begin, end:end
         },
         success: function (result) {
+            if(result.status != 1){
+                alertBlur(result.msg);
+                return;
+            }
             console.log(result);
             var historyBox = document.getElementById("historyBox");
             var dataSource = document.getElementById("deviceSource").value;
@@ -141,6 +145,10 @@ function getAllDevice() {
         type: "get",
         dataType: "json",
         success: function (result) {
+            if(result.status != 1){
+                alertBlur(result.msg);
+                return;
+            }
             console.log(result);
             var deviceSelectList = document.getElementById("setDevice");
             var optionStr = "";
@@ -230,7 +238,7 @@ function onUpdateDevice() {
         data: { "id": id, "name": name, "dataType": dataType },
         dataType: "json",
         success: function (result) {
-            alertBlur(result)
+            alertBlur(result.msg)
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("更新用户信息异常", xhr, textStatus, errorThrown);

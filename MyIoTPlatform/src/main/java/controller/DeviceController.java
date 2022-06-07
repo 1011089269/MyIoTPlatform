@@ -43,6 +43,7 @@ public class DeviceController {
         service.insert(device);
         Result result = new Result();
         result.setStatus(5);
+        result.setMsg("设备添加成功");
         return result;
     }
     //设备查找
@@ -63,7 +64,7 @@ public class DeviceController {
     @PutMapping("/update")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public boolean updateDevice(Device device) {
+    public Result updateDevice(Device device) {
         //name,,dataType,id\time都写
         Device d = service.findById(device.getId());
         System.out.println("deviceUpdate:"+device.getName());
@@ -72,7 +73,10 @@ public class DeviceController {
             device.setName(d.getName());
         }
         service.update(device);
-        return true;
+        Result result = new Result();
+        result.setStatus(1);
+        result.setMsg("设备更新成功");
+        return result;
     }
     //设备删除
     @DeleteMapping("/delete")
@@ -118,6 +122,7 @@ public class DeviceController {
         }
         Result result = new Result();
         result.setStatus(5);
+        result.setMsg("设备数据添加成功");
         return result;
     }
 
@@ -153,6 +158,7 @@ public class DeviceController {
         }
 
         System.out.println("设备ID的全部历史数据："+json);
+        result.setStatus(1);
         return result;
 
     }
@@ -186,7 +192,7 @@ public class DeviceController {
             return result;
         }
         System.out.println("查找设备ID的最新数据："+json);
-
+        result.setStatus(1);
         return result;
     }
 
