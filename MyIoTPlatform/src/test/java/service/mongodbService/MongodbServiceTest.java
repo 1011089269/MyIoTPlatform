@@ -129,7 +129,7 @@ class MongodbServiceTest {
 
     @Test
     void findListByPeriod() {
-        System.out.println(alertService.findListByPeriod("629df0e5d5a43a7080b8e13a","2022-06-07 00:07:00", "2022-06-07 00:07:52"));
+        System.out.println(alertService.findListByPeriod("629e328e7def37676cd15d52","2022-06-07 03:32:27", "2022-06-07 03:36:10"));
 
     }
 

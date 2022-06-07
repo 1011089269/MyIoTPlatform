@@ -10,13 +10,15 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class MongodbService implements IBaseDao<Device> {
     @Autowired
     private MongoTemplate mongoTemplate;
-
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @Override
     public void createCollection() {
         if(!mongoTemplate.collectionExists(Device.class)){
@@ -26,6 +28,7 @@ public class MongodbService implements IBaseDao<Device> {
 
     @Override
     public void insert(Device entity) {
+        entity.setTime(df.format(new Date()));
         mongoTemplate.insert(entity);
     }
 
@@ -54,7 +57,7 @@ public class MongodbService implements IBaseDao<Device> {
         query.addCriteria(new Criteria("_id").is(entity.getId()));
         Update update = new Update();
         update.set("name", entity.getName());
-        update.set("time", entity.getTime());
+        update.set("time", df.format(new Date()));
         update.set("dataType", entity.getDataType());
         this.mongoTemplate.updateFirst(query, update, Device.class);
     }

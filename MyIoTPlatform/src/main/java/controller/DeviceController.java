@@ -39,7 +39,7 @@ public class DeviceController {
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public void addDevice(Device device) {
-        //name,time,dataType,id别写
+        //name,,dataType,id\time别写
         service.insert(device);
     }
     //设备查找
@@ -58,7 +58,7 @@ public class DeviceController {
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
     public void updateDevice(Device device) {
-        //name,time,dataType,id都写
+        //name,,dataType,id\time都写
         service.update(device);
     }
     //设备删除
