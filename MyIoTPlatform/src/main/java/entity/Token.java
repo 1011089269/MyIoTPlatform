@@ -10,10 +10,10 @@ import java.util.UUID;
  */
 public class Token {
     public enum Type {
+        DEVICE("设备"),
         USER("普通用户"),
         ADMIN("管理员"),
-        DEVELOP("开发者"),
-        DEVICE("设备");
+        DEVELOP("开发者");
 
         private String name;
 

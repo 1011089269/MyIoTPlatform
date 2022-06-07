@@ -25,6 +25,9 @@
             <if test="age!=0">
                 and age=#{age}
             </if>
+            <if test="role!=0">
+                and role=#{role}
+            </if>
         </trim>
     </select>
     <!--    改-->
@@ -42,6 +45,9 @@
             </if>
             <if test="age!=0">
                 age=#{age}
+            </if>
+            <if test="role!=0">
+                role=#{role}
             </if>
         </set>
         where id=#{id}
@@ -61,6 +67,9 @@
             </if>
             <if test="age!=0">
                 and age=#{age}
+            </if>
+            <if test="role!=0">
+                and role=#{role}
             </if>
         </trim>
     </delete>

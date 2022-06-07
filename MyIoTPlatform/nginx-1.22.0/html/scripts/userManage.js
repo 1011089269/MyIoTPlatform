@@ -15,10 +15,11 @@ function onAddUser() {
     const email = $("#txtInsertEmail").val();
     const password = $("#txtInsertPassword").val();
     const age = Number($("#txtInsertAge").val());
+    const role = Number($("#txtInsertRole").val());
     $.ajax({
         url: URL_HEAD + "add",
         type: "post",
-        data: { "name": userName, "password": password, "email": email, "age": age },
+        data: { "name": userName, "password": password, "email": email, "age": age, "role":role },
         dataType: "json",
         success: function (result) {
             alertBlur(result.msg);
@@ -35,14 +36,15 @@ function onFindUser() {
     const userName = $("#txtFindUserName").val();
     const email = $("#txtFindEmail").val();
     const age = Number($("#txtFindAge").val());
-    findUser(id, userName, email, age);
+    const role = Number($("#txtFindRole").val());
+    findUser(id, userName, email, age, role);
 }
 
-function findUser(id, userName, email, age) {
+function findUser(id, userName, email, age, role) {
     $.ajax({
         url: URL_HEAD + "find",
         type: "get",
-        data: { "id": id, "name": userName, "email": email, "age": age },
+        data: { "id": id, "name": userName, "email": email, "age": age, "role":role },
         dataType: "json",
         success: function (result) {
             clearUserList();
@@ -55,7 +57,7 @@ function findUser(id, userName, email, age) {
 }
 
 function findAllUser() {
-    findUser(0, null, null, 0);
+    findUser(0, null, null, 0,0);
 }
 
 function findUserList(users) {
@@ -73,6 +75,8 @@ function findUserList(users) {
         builder.append(user.email);
         builder.append("</td><td>")
         builder.append(user.age);
+        builder.append("</td><td>")
+        builder.append(user.role);
         builder.append("</td></tr>")
         $("#tbUserList tbody").append(builder.toString());
     }
@@ -88,14 +92,15 @@ function onUpdateUser() {
     const email = $("#txtUpdateEmail").val();
     const password = $("#txtUpdatePassword").val();
     const age = Number($("#txtUpdateAge").val());
-    if (id && !(userName || password || email || age)) {
+    const role = Number($("#txtUpdateRole").val());
+    if (id && !(userName || password || email || age ||role)) {
         alertBlur("请保证更新参数不为空");
         return;
     }
     $.ajax({
         url: URL_HEAD + "update",
         type: "put",
-        data: { "id": id, "name": userName, "password": password, "email": email, "age": age },
+        data: { "id": id, "name": userName, "password": password, "email": email, "age": age, "role":role},
         dataType: "json",
         success: function (result) {
             alertBlur(result.msg);
@@ -111,7 +116,8 @@ function onModifyUser() {
     const userName = $("#txtUpdateUserName").val();
     const email = $("#txtUpdateEmail").val();
     const age = Number($("#txtUpdateAge").val());
-    if (!(userName || email || age)) {
+    const role = Number($("#txtUpdateRole").val());
+    if (!(userName || email || age ||role)) {
         alertBlur("请保证更新参数不为空");
         return;
     }
@@ -121,7 +127,8 @@ function onModifyUser() {
         data: { "tokenValue": getTokenValue(),
             "name": userName,
             "email": email,
-            "age": age },
+            "age": age,
+            "role":role},
         dataType: "json",
         success: function (result) {
             alertBlur(result.msg);
@@ -137,10 +144,11 @@ function onDeleteUser() {
     const userName = $("#txtDeleteUserName").val();
     const email = $("#txtDeleteEmail").val();
     const age = Number($("#txtDeleteAge").val());
+    const role = Number($("#txtDeleteRole").val());
     $.ajax({
         url: URL_HEAD + "delete",
         type: "delete",
-        data: { "id": id, "name": userName, "email": email, "age": age },
+        data: { "id": id, "name": userName, "email": email, "age": age ,"role":role},
         dataType: "json",
         success: function (result) {
             alertBlur(result.msg);
