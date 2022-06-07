@@ -254,7 +254,11 @@ function onLoadUserCenter() {
             $("#lblLoginState").text(result.msg);
             if (result.status === 0) {
                 let user = result.data[0];
-
+                console.log(result);
+                console.log(user.name);
+                $("#txtUpdateUserName").val(user.name);
+                $("#txtUpdateEmail").val(user.email);
+                $("#txtUpdateAge").val(user.age);
                 $("#btnLoginAction").text("双击退出登录");
                 console.log(1);
             } else {
