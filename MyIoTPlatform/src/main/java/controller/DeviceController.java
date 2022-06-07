@@ -46,12 +46,14 @@ public class DeviceController {
     @GetMapping("/find")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public String findDevice() {
+    public Result findDevice() {
         service.findList(0,100);
         Gson gson = new Gson();
         String json = gson.toJson(service.findList(0,100));
         System.out.println("查找全部设备："+json);
-        return json;
+        Result result = new Result();
+        result.setData(service.findList(0,100));
+        return result;
     }
     //设备更新
     @PutMapping("/update")
