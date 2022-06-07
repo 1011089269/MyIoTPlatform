@@ -47,19 +47,30 @@ function deviceAddData() {
 function findDeviceData() {
     var id = document.getElementById("setDevice").value;
     var dataSource = document.getElementById("deviceSource").value;
-    // console.log(id, dataSource);
+    var begin = document.getElementById("txtBeginDeviceTime").value;
+    var end = document.getElementById("txtEndDeviceTime").value;
+
+
     var dataSourceURL;
     if (dataSource == 0) {
         dataSourceURL = "findLastByDeviceId";
     } else {
         dataSourceURL = "findDataById";
     }
+
+    if(begin!= "" && end!= ""){
+        begin = begin + " 00:00:00";
+        end = end+ " 24:00:00";
+        dataSourceURL = "findListByPeriod";
+        console.log(begin+end);
+    }
+
     $.ajax({
         url: URL_HEAD_DEVICE + dataSourceURL,
         type: "post",
         dataType: "json",
         data: {
-            deviceId: id
+            deviceId: id, begin:begin, end:end
         },
         success: function (result) {
             console.log(result);
