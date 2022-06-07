@@ -121,7 +121,10 @@ public class UserManageService {
 
     public Result updateUserInfo(User user) {
         Result result = new Result();
-
+        System.out.println(user.getPassword());
+        if(user.getPassword() != null && !user.getPassword().equals("")){
+            user.setPassword(getMD5Str(user.getPassword()));
+        }
         int affectedRowCount = userDao.updateUserInfo(user);
         if (affectedRowCount == 1) {
             result.setStatus(0);
