@@ -12,12 +12,14 @@ function onAddDevice() {
         data: { "name": name, "dataType": dataType},
         dataType: "json",
         success: function (result) {
-            onFindDevice();
+            alertBlur(result)
+
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("新增用户异常", xhr, textStatus, errorThrown);
         }
     });
+    onFindDevice();
 }
 
 function onFindDevice() {
@@ -68,12 +70,13 @@ function onDeleteDevice() {
         data: { "id": id },
         dataType: "json",
         success: function (result) {
-            onFindDevice();
+            alertBlur(result)
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("删除用户信息异常", xhr, textStatus, errorThrown);
         }
     });
+    onFindDevice();
 }
 
 function onUpdateDevice() {
@@ -87,10 +90,25 @@ function onUpdateDevice() {
         data: { "id": id, "name": name, "dataType": dataType},
         dataType: "json",
         success: function (result) {
-            onFindDevice();
+            alertBlur(result)
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("更新用户信息异常", xhr, textStatus, errorThrown);
         }
     });
+    onFindDevice();
+}
+
+//跳转页面
+function jump(url) {
+    window.location.href = url;
+}
+
+//模糊背景弹窗方法
+//需要搭配 <style> body { transition: all var(--Fast) ease; } </style> 来使用
+function alertBlur(str) {
+    checkEnter = false;
+    setTimeout("document.body.style.filter = 'blur(10px)'", 0);
+    setTimeout("alert('" + str + "');", 300); //通过延时来“同时”执行第二个function，否则单击一次执行一次
+    setTimeout("document.body.style.filter = 'blur(0px)'", 300);
 }

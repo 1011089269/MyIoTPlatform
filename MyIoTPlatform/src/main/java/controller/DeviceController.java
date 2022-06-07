@@ -59,9 +59,10 @@ public class DeviceController {
     @PutMapping("/update")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public void updateDevice(Device device) {
+    public boolean updateDevice(Device device) {
         //name,,dataType,id\time都写
         service.update(device);
+        return true;
     }
     //设备删除
     @DeleteMapping("/delete")
