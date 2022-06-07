@@ -121,8 +121,12 @@ function deleteDeviceAllHistory() {
             deviceId: id
         },
         success: function (result) {
-            document.getElementById("historyBox").innerText = "历史数据";
-            alertBlur("设备 " + id + " 历史数据删除完成!");
+            if(result.status == 5) {
+                document.getElementById("historyBox").innerText = "历史数据";
+                alertBlur("设备 " + id + " 历史数据删除完成!");
+            } else {
+                alertBlur(result.msg)
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
             alertBlur("设备 " + id + " 历史数据删除失败!");
@@ -162,8 +166,12 @@ function onFindDevice() {
         data: {},
         dataType: "json",
         success: function (result) {
-            clearDeviceList();
-            findDeviceList(result.data);
+            if(result.status == 1){
+                clearDeviceList();
+                findDeviceList(result.data);
+            } else {
+                alertBlur(result.msg);
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("查询用户异常", xhr, textStatus, errorThrown);
@@ -203,7 +211,7 @@ function onDeleteDevice() {
         data: { "id": id },
         dataType: "json",
         success: function (result) {
-            alertBlur(result)
+            alertBlur(result.msg)
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("删除用户信息异常", xhr, textStatus, errorThrown);

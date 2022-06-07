@@ -38,9 +38,12 @@ public class DeviceController {
     @PostMapping("/add")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public void addDevice(Device device) {
+    public Result addDevice(Device device) {
         //name,,dataType,id\time别写
         service.insert(device);
+        Result result = new Result();
+        result.setStatus(5);
+        return result;
     }
     //设备查找
     @GetMapping("/find")
@@ -53,6 +56,7 @@ public class DeviceController {
         System.out.println("查找全部设备："+json);
         Result result = new Result();
         result.setData(service.findList(0,100));
+        result.setStatus(1);
         return result;
     }
     //设备更新
@@ -74,16 +78,20 @@ public class DeviceController {
     @DeleteMapping("/delete")
     @ResponseBody
     @Authority(role = {Token.Type.USER, Token.Type.ADMIN, Token.Type.DEVELOP})
-    public void deleteDevice(Device device) {
+    public Result deleteDevice(Device device) {
         //有id就行
         service.delete(device.getId());
+        Result result = new Result();
+        result.setStatus(5);
+        result.setMsg("设备删除成功");
+        return result;
     }
 
     //设备数据添加
     @PostMapping("/addData")
     @ResponseBody
     @Authority(role = {Token.Type.DEVELOP})
-    public void addData(String id, String data) {
+    public Result addData(String id, String data) {
         //name,time,dataType,id别写
         Device device = service.findById(id);
         int type = device.getDataType();
@@ -108,6 +116,9 @@ public class DeviceController {
             status.setStatus(Integer.valueOf(data));
             statusService.insert(status);
         }
+        Result result = new Result();
+        result.setStatus(5);
+        return result;
     }
 
     //查找某设备ID的全部历史数据
@@ -204,7 +215,7 @@ public class DeviceController {
     @PostMapping("/deleteDataByDeviceId")
     @ResponseBody
     @Authority(role = {Token.Type.DEVELOP})
-    public void deleteDataByDeviceId(String id, String deviceId) {
+    public Result deleteDataByDeviceId(String id, String deviceId) {
         Device device = service.findById(deviceId);
         int type = device.getDataType();
         //判断数据类型并查找
@@ -216,13 +227,16 @@ public class DeviceController {
         else if(type == 3){
             statusService.delete(id);
         }
+        Result result = new Result();
+        result.setStatus(5);
+        return result;
     }
 
     //删除某设备的全部数据
     @PostMapping("/deleteDataById")
     @ResponseBody
     @Authority(role = {Token.Type.DEVELOP})
-    public void deleteDataById(String deviceId) {
+    public Result deleteDataById(String deviceId) {
         System.out.println("*-*******************************************");
         Device device = service.findById(deviceId);
         int type = device.getDataType();
@@ -236,5 +250,8 @@ public class DeviceController {
             statusService.deleteByDeviceId(deviceId);
         }
         System.out.println("*-*******************************************");
+        Result result = new Result();
+        result.setStatus(5);
+        return result;
     }
 }
