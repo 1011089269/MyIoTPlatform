@@ -78,7 +78,21 @@
                 <pre class="Card" id="historyBox" style="margin:20px 0; padding: 20px;">历史数据</pre>
                 <button id="deleteData" class="Fill" style="margin: 0 0 20px 0;"
                     onclick="deleteDeviceAllHistory()">删除该设备所有历史数据</button>
+
+                <div class="CardTitleInner">数据添加</div>
+                <hr class="hr">
+                <div class="Row Flex" style="margin-bottom: 0">
+                    <div class="inputBox Fill">
+                        <span style="margin-right: 10px;    padding-top: 10px;">数据</span>
+                        <input id="txtDeviceAddData" type="text" class="input RowRight CardInput"
+                            placeholder="请在此输入想要添加的数据" />
+                    </div>
+                </div>
+                <button id="deleteData" class="Fill" style="margin: 0 0 20px 0;"
+                    onclick="deviceAddData()">提交新的数据</button>
             </div>
+
+
         </div>
         <div class="Row Flex">
             <div class="Card">

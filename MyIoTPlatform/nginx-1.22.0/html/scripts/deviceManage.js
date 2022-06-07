@@ -25,6 +25,25 @@ function onAddDevice() {
     onFindDevice();
 }
 
+function deviceAddData() {
+    var addData = document.getElementById("txtDeviceAddData").value;
+    var deviceId = document.getElementById("setDevice").value;
+    $.ajax({
+        url: URL_HEAD_DEVICE + "addData",
+        type: "post",
+        data: { "id": deviceId, "data": addData },
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            alertBlur(result.msg);
+
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            showError("新增设备数据错误", xhr, textStatus, errorThrown);
+        }
+    });
+}
+
 function findDeviceData() {
     var id = document.getElementById("setDevice").value;
     var dataSource = document.getElementById("deviceSource").value;
