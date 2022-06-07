@@ -44,15 +44,11 @@ function findDeviceData() {
         },
         success: function (result) {
             console.log(result);
-            // var deviceSelectList = document.getElementById("setDevice");
-            // var optionStr = "";
-            // if (result.data != null) {
-            //     for (var i = 0; i < result.data.length; i++) {
-            //         optionStr = optionStr + '<option value="' + result.data[i].id +
-            //             '">' + result.data[i].name + ' | ' + result.data[i].id + '</option>'
-            //     }
-            //     deviceSelectList.innerHTML = optionStr;
-            // }
+            var historyBox = document.getElementById("historyBox");
+            for (var i = 0; i < result.length; i++) {
+                historyBox.innerText = result[i].id + " | " + result[i].deviceId
+                + " | " + result[i].time + " | " + result[i].news;
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
             showError("查询用户异常", xhr, textStatus, errorThrown);
@@ -71,10 +67,10 @@ function deleteDeviceAllHistory() {
             deviceId: id
         },
         success: function (result) {
-            alertBlur("设备 "+ id + " 历史数据删除完成!");
+            alertBlur("设备 " + id + " 历史数据删除完成!");
         },
         error: function (xhr, textStatus, errorThrown) {
-            alertBlur("设备 "+ id + " 历史数据删除失败!");
+            alertBlur("设备 " + id + " 历史数据删除失败!");
             showError("查询用户异常", xhr, textStatus, errorThrown);
         }
     });
