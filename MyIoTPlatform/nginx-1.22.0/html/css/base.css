@@ -93,6 +93,10 @@ option {
     background: linear-gradient(to right, white, var(--white50), transparent);
 }
 
+pre {
+    font-family: Bahnschrift, '微软雅黑';
+}
+
 .input {
     flex-basis: 75%;
     background: var(--white10);

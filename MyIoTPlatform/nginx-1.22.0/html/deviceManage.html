@@ -35,33 +35,6 @@
             <!-- </div> -->
 
             <div class="Card ManageCard">
-                <div class="CardTitleInner">添加设备</div>
-                <hr class="hr">
-                <div class="Row FlexColumn">
-                    <div>
-                        <span class="inputSpan">设备名称</span>
-                        <input id="txtInsertDeviceName" class="input RowRight CardInput" placeholder="请在此输入设备名" />
-                    </div>
-<!--                    <div>-->
-<!--                        <span class="inputSpan">时间</span>-->
-<!--                        <input id="DeviceTime" type="datetime" class="input RowRight CardInput"-->
-<!--                            placeholder="请在此输入时间" />-->
-<!--                    </div>-->
-                    <div>
-                        <span class="inputSpan">数据类型</span>
-
-                        <select id="dataType" style="margin-left: -5px;" class="input RowRight CardSelect">
-                            <option value="1" selected="selected">Measurement</option>
-                            <option value="2">Alert</option>
-                            <option value="3">Status</option>
-                        </select>
-                    </div>
-                    <button id="addDevice" class="RowLeft Fill" style="margin-top: 12px;"
-                        onclick="onAddDevice()">新增设备</button>
-                </div>
-            </div>
-
-            <div class="Card ManageCard">
                 <div class="CardTitleInner">修改设备</div>
                 <hr class="hr">
                 <div class="Row FlexColumn">
@@ -73,18 +46,18 @@
                         <span class="inputSpan">设备名称</span>
                         <input id="txtUpdateName" class="input RowRight CardInput" placeholder="请在此输入待修改设备的设备名称" />
                     </div>
-<!--                    <div>-->
-<!--                        <span class="inputSpan">时间</span>-->
-<!--                        <input id="txtUpdateDeviceTime" type="datetime" class="input RowRight CardInput"-->
-<!--                            placeholder="请在此输入时间" />-->
-<!--                    </div>-->
+                    <!--                    <div>-->
+                    <!--                        <span class="inputSpan">时间</span>-->
+                    <!--                        <input id="txtUpdateDeviceTime" type="datetime" class="input RowRight CardInput"-->
+                    <!--                            placeholder="请在此输入时间" />-->
+                    <!--                    </div>-->
                     <div>
                         <span class="inputSpan">数据类型</span>
 
                         <select id="txtUpdateDataType" style="margin-left: -5px;" class="input RowRight CardSelect">
-                            <option value="1" selected="selected">Measurement</option>
-                            <option value="2">Alert</option>
-                            <option value="3">Status</option>
+                            <option value="1" selected="selected">数值测量值型</option>
+                            <option value="2">文本预警消息型</option>
+                            <option value="3">开关状态型</option>
                         </select>
                     </div>
                     <button id="updateDevice" class="RowLeft Fill" style="margin-top: 12px;"
@@ -93,13 +66,41 @@
             </div>
 
             <div class="Card ManageCard">
+                <div class="CardTitleInner">添加设备</div>
+                <hr class="hr">
+                <div class="Row FlexColumn">
+                    <div>
+                        <span class="inputSpan">设备名称</span>
+                        <input id="txtInsertDeviceName" class="input RowRight CardInput" placeholder="请在此输入设备名" />
+                    </div>
+                    <!--                    <div>-->
+                    <!--                        <span class="inputSpan">时间</span>-->
+                    <!--                        <input id="DeviceTime" type="datetime" class="input RowRight CardInput"-->
+                    <!--                            placeholder="请在此输入时间" />-->
+                    <!--                    </div>-->
+                    <div>
+                        <span class="inputSpan">数据类型</span>
+
+                        <select id="dataType" style="margin-left: -5px;" class="input RowRight CardSelect">
+                            <option value="1" selected="selected">数值测量值型</option>
+                            <option value="2">文本预警消息型</option>
+                            <option value="3">开关状态型</option>
+                        </select>
+                    </div>
+                    <button id="addDevice" class="RowLeft Fill" style="margin-top: 12px;"
+                        onclick="onAddDevice()">新增设备</button>
+                </div>
+            </div>
+
+
+
+            <div class="Card ManageCard">
                 <div class="CardTitleInner">删除设备</div>
                 <hr class="hr">
                 <div class="Row FlexColumn">
                     <div>
                         <span class="inputSpan">ID</span>
-                        <input id="txtDeviceDeleteId"  class="input RowRight CardInput"
-                            placeholder="请在此输入 ID" />
+                        <input id="txtDeviceDeleteId" class="input RowRight CardInput" placeholder="请在此输入 ID" />
                     </div>
                     <button id="deleteDevice" class="RowLeft Fill" style="margin-top: 12px;"
                         onclick="onDeleteDevice()">删除设备</button>

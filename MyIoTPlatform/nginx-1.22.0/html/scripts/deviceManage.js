@@ -14,11 +14,11 @@ function onAddDevice() {
         type: "post",
         data: { "name": name, "dataType": dataType },
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             alertBlur(result)
 
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("新增用户异常", xhr, textStatus, errorThrown);
         }
     });
@@ -42,38 +42,39 @@ function findDeviceData() {
         data: {
             deviceId: id
         },
-        success: function(result) {
+        success: function (result) {
             console.log(result);
             var historyBox = document.getElementById("historyBox");
             var dataSource = document.getElementById("deviceSource").value;
             var str = "";
             console.log(dataSource);
             var rs = result.data;
-            if(dataSource == 1){
+            if (dataSource == 1) {
                 for (let i = 0; i < rs.length; i++) {
                     let r = rs[i];
-                    if (result.status == 1){
-                        str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value:"+r.value;
-                    }else if(result.status == 2){
-                        str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value:"+r.news;
-                    }else if(result.status == 3){
-                        str = str +"\n"+"id:"+r.id+" time:"+ r.time+" value:"+r.status;
+                    if (result.status == 1) {
+                        str = str + "\n" + "id[" + r.id + "]   time[" + r.time + "]   value[" + r.value + "]";
+                    } else if (result.status == 2) {
+                        str = str + "\n" + "id[" + r.id + "]   time[" + r.time + "]   value[" + r.news + "]";
+                    } else if (result.status == 3) {
+                        str = str + "\n" + "id[" + r.id + "]   time[" + r.time + "]   value[" + r.status + "]";
                     }
                 }
-            }else{
-                if (result.status == 1){
-                    str = str +"\n"+"id:"+rs.id+" time:"+ rs.time+" value:"+rs.value;
-                }else if(result.status == 2){
-                    str = str +"\n"+"id:"+rs.id+" time:"+ rs.time+" value:"+rs.news;
-                }else if(result.status == 3){
-                    str = str +"\n"+"id:"+rs.id+" time:"+ rs.time+" value:"+rs.status;
+            } else {
+                if (result.status == 1) {
+                    str = str + "\n" + "id[" + rs.id + "]   time[" + rs.time + "]   value[" + rs.value + "]";
+                } else if (result.status == 2) {
+                    str = str + "\n" + "id[" + rs.id + "]   time[" + rs.time + "]   value[" + rs.news + "]";
+                } else if (result.status == 3) {
+                    str = str + "\n" + "id[" + rs.id + "]   time[" + rs.time + "]   value[" + rs.status + "]";
                 }
             }
 
             console.log(str);
-            historyBox.append(str+"\n");
+            historyBox.innerText = historyBox.innerText + str;
+            historyBox.scrollTop = historyBox.scrollHeight;
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("查询用户异常", xhr, textStatus, errorThrown);
         }
     });
@@ -89,10 +90,11 @@ function deleteDeviceAllHistory() {
         data: {
             deviceId: id
         },
-        success: function(result) {
+        success: function (result) {
+            document.getElementById("historyBox").innerText = "历史数据";
             alertBlur("设备 " + id + " 历史数据删除完成!");
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             alertBlur("设备 " + id + " 历史数据删除失败!");
             showError("查询用户异常", xhr, textStatus, errorThrown);
         }
@@ -104,7 +106,7 @@ function getAllDevice() {
         url: URL_HEAD_DEVICE + "find",
         type: "get",
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             console.log(result);
             var deviceSelectList = document.getElementById("setDevice");
             var optionStr = "";
@@ -116,7 +118,7 @@ function getAllDevice() {
                 deviceSelectList.innerHTML = optionStr;
             }
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("查询用户异常", xhr, textStatus, errorThrown);
         }
     });
@@ -129,11 +131,11 @@ function onFindDevice() {
         type: "get",
         data: {},
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             clearDeviceList();
             findDeviceList(result.data);
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("查询用户异常", xhr, textStatus, errorThrown);
         }
     });
@@ -170,10 +172,10 @@ function onDeleteDevice() {
         type: "delete",
         data: { "id": id },
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             alertBlur(result)
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("删除用户信息异常", xhr, textStatus, errorThrown);
         }
     });
@@ -189,10 +191,10 @@ function onUpdateDevice() {
         type: "put",
         data: { "id": id, "name": name, "dataType": dataType },
         dataType: "json",
-        success: function(result) {
+        success: function (result) {
             alertBlur(result)
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             showError("更新用户信息异常", xhr, textStatus, errorThrown);
         }
     });
