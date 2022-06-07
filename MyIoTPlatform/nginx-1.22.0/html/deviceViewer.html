@@ -18,7 +18,8 @@
 <body onload="">
     <div class="Flex" id="container">
         <div class="Row Flex">
-            <div class="Card" style="max-width: 20px; height: 70px; background: url(/images/cloudPlatformIcon.jpeg);    background-size: cover;">
+            <div class="Card"
+                style="max-width: 20px; height: 70px; background: url(/images/cloudPlatformIcon.jpeg);    background-size: cover;">
             </div>
             <div class="Card">
                 <span class="CardTitle">数据展示</span>
@@ -64,16 +65,19 @@
                 <div class="Row Flex" style="margin-bottom: 0">
                     <div class="inputBox Fill" style="margin-right: 20px;">
                         <span style="margin-right: 10px;    padding-top: 10px;">起始时间</span>
-                        <input id="txtBeginDeviceTime" type="datetime" class="input RowRight CardInput" placeholder="请在此输入时间" />
+                        <input id="txtBeginDeviceTime" type="datetime" class="input RowRight CardInput"
+                            placeholder="请在此输入时间" />
                     </div>
                     <div class="inputBox Fill">
                         <span style="margin-right: 10px; padding-top: 10px;">结束时间</span>
-                        <input id="txtEndDeviceTime" type="datetime" class="input RowRight CardInput" placeholder="请在此输入时间" />
+                        <input id="txtEndDeviceTime" type="datetime" class="input RowRight CardInput"
+                            placeholder="请在此输入时间" />
                     </div>
                 </div>
                 <button id="findData" class="Fill" style="margin-top: 12px;" onclick="findDeviceData()">查看数据</button>
                 <div class="Card" style="margin:20px 0; padding: 20px;">Logs</div>
-                <button id="deleteData" class="Fill" style="margin: 0 0 20px 0;" onclick="">删除该设备所有历史数据</button>
+                <button id="deleteData" class="Fill" style="margin: 0 0 20px 0;"
+                    onclick="deleteDeviceAllHistory()">删除该设备所有历史数据</button>
             </div>
         </div>
         <div class="Row Flex">

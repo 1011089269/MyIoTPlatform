@@ -28,7 +28,7 @@ function onAddDevice() {
 function findDeviceData() {
     var id = document.getElementById("setDevice").value;
     var dataSource = document.getElementById("deviceSource").value;
-    console.log(id, dataSource);
+    // console.log(id, dataSource);
     var dataSourceURL;
     if (dataSource == 0) {
         dataSourceURL = "findLastByDeviceId";
@@ -55,6 +55,26 @@ function findDeviceData() {
             // }
         },
         error: function (xhr, textStatus, errorThrown) {
+            showError("查询用户异常", xhr, textStatus, errorThrown);
+        }
+    });
+}
+
+function deleteDeviceAllHistory() {
+    var id = document.getElementById("setDevice").value;
+    console.log(id);
+    $.ajax({
+        url: URL_HEAD_DEVICE + "deleteDataById",
+        type: "post",
+        dataType: "json",
+        data: {
+            deviceId: id
+        },
+        success: function (result) {
+            alertBlur("设备 "+ id + " 历史数据删除完成!");
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alertBlur("设备 "+ id + " 历史数据删除失败!");
             showError("查询用户异常", xhr, textStatus, errorThrown);
         }
     });
