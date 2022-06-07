@@ -49,9 +49,8 @@ function findDeviceData() {
     var dataSource = document.getElementById("deviceSource").value;
     var begin = document.getElementById("txtBeginDeviceTime").value;
     var end = document.getElementById("txtEndDeviceTime").value;
-
-
     var dataSourceURL;
+    var period = 0;
     if (dataSource == 0) {
         dataSourceURL = "findLastByDeviceId";
     } else {
@@ -63,6 +62,7 @@ function findDeviceData() {
         end = end+ " 24:00:00";
         dataSourceURL = "findListByPeriod";
         console.log(begin+end);
+        period = 1;
     }
 
     $.ajax({
@@ -83,7 +83,7 @@ function findDeviceData() {
             var str = "";
             console.log(dataSource);
             var rs = result.data;
-            if (dataSource == 1) {
+            if (dataSource == 1 || period == 1) {
                 for (let i = 0; i < rs.length; i++) {
                     let r = rs[i];
                     if (result.status == 1) {

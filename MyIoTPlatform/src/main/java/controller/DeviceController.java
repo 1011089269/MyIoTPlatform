@@ -210,13 +210,16 @@ public class DeviceController {
         if(type == 1){
             json = gson.toJson(measurementService.findListByPeriod(deviceId,begin,end));
             result.setData(measurementService.findListByPeriod(deviceId,begin,end));
+            result.setStatus(1);
         }else if(type == 2){
             json = gson.toJson(alertService.findListByPeriod(deviceId,begin,end));
             result.setData(alertService.findListByPeriod(deviceId,begin,end));
+            result.setStatus(2);
         }
         else if(type == 3){
             json = gson.toJson(statusService.findListByPeriod(deviceId,begin,end));
             result.setData(statusService.findListByPeriod(deviceId,begin,end));
+            result.setStatus(3);
         }
         return result;
     }
