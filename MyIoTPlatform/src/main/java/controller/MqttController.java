@@ -22,6 +22,17 @@ public class MqttController {
     @Autowired
     private Client client;
 
+    //deviceId
+    @PostMapping("/sendID")
+            @ResponseBody
+            public boolean sendID(String sign, String deviceId) throws MqttException {
+        //1为开，2为关
+        String msg = "{\"Cmd\":"+sign+",\"Id\":"+deviceId+"}";
+        System.out.println("Cmd:"+0+ "deviceId:"+deviceId);
+        client.publish(publish,msg);
+        return true;
+    }
+
     //led
     @PostMapping("/led")
     @ResponseBody
@@ -58,7 +69,7 @@ public class MqttController {
     @ResponseBody
     public void setAuto(String sign, String temperature) throws MqttException {
         //7为开，8为关
-        String msg = "{\"Cmd\":"+sign+" \"temp\":"+temperature+"}";
+        String msg = "{\"temp\":"+temperature+",\"Cmd\":"+sign+"}";
         System.out.println("auto:"+sign +" temp"+temperature);
         client.publish(publish,msg);
     }

@@ -47,11 +47,11 @@
         function dgdgd() {
 
             $.ajax({
-                url: "/api/mqtt/led",
+                url: "/api/mqtt/auto",
                 type: "post",
                 dataType: "json",
                 data: {
-                    sign: "test"
+                    sign: 7 , temperature:28
                 },
                 success: function (result) {
                         alertBlur("success")
