@@ -29,7 +29,7 @@ public class UserController {
         this.userManageService = userManageService;
         Client client = new Client();
         client.connect();
-        String topic = "test";
+        String topic = "esp";
         //订阅
         client.subscribe(topic,0);
     }

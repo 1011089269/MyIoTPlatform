@@ -68,6 +68,4 @@ public class MongodbService implements IBaseDao<Device> {
         query.addCriteria(new Criteria("_id").is(id));
         this.mongoTemplate.remove(query, Device.class);
     }
-
-
 }

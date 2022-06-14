@@ -19,10 +19,24 @@
         <br />
         密码：<input type="password" id="txtLoginPassword" />
         <br />
-        <input type="button" value="登录" onclick="onLoginClick()" />
+        <input type="button" value="登录" onclick="open()" />
     </div>
 </body>
-
+<script>
+    const URL_HEAD = "http://localhost:8080/mqtt/";
+    function open() {
+        const cmd = 1;
+        $.ajax({
+            url: URL_HEAD + "led",
+            //通过type来判断调用哪个方法
+            type: "post",
+            data: {
+                "sign": cmd
+            },
+            dataType: "json"
+        });
+    }
+</script>
 
 
 </html>

@@ -73,10 +73,7 @@ function findDeviceData() {
             deviceId: id, begin:begin, end:end
         },
         success: function (result) {
-            if(result.status != 1){
-                alertBlur(result.msg);
-                return;
-            }
+
             console.log(result);
             var historyBox = document.getElementById("historyBox");
             var dataSource = document.getElementById("deviceSource").value;
