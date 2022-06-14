@@ -9,7 +9,7 @@ import java.util.UUID;
  * @date 2022-06-04 23:42:44
  */
 public class Token {
-    public enum Type {
+    public enum Type {  // 定义权限类型
         DEVICE("设备"),
         USER("普通用户"),
         ADMIN("管理员"),

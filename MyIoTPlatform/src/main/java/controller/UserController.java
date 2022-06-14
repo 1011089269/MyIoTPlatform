@@ -7,6 +7,7 @@ import entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.Result;
@@ -25,9 +26,11 @@ import service.mqttService.Client;
 public class UserController {
 
     private final UserManageService userManageService;
-    public UserController(UserManageService userManageService) throws MqttException {
+    @Autowired
+    private final Client client;
+    public UserController(UserManageService userManageService, Client client) throws MqttException {
         this.userManageService = userManageService;
-        Client client = new Client();
+        this.client = client;
         client.connect();
         String topic = "test";
         //订阅

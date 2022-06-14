@@ -44,7 +44,7 @@
                 email=#{email},
             </if>
             <if test="age!=0">
-                age=#{age}
+                age=#{age},
             </if>
             <if test="role!=0">
                 role=#{role}

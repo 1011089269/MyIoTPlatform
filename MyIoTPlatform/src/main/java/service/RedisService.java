@@ -11,6 +11,11 @@ import java.util.concurrent.TimeUnit;
  * @description: 提供Redis数据库的相关功能
  * @date 2022-06-04 23:57:44
  */
+
+/**
+ * 提供Redis数据库的相关功能
+ * 包括创建记录、查询key是否存在、查询value、删除记录
+ */
 @Service
 public class RedisService {
 

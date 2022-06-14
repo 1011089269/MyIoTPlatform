@@ -24,6 +24,11 @@ import java.util.Map;
  * @description: token拦截器
  * @date 2022-06-05 15:53:34
  */
+
+/**
+ * token拦截器
+ * 进行权限验证，对于不符合权限要求的操作请求进行拦截
+ */
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
     private final TokenManager tokenManager;
@@ -34,18 +39,18 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 判断是否有@FreeToken注解，如果有则跳过拦截器
+        // 判断是否有@FreeToken注解，如果有则跳过拦截器的权限验证
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         if (method.getAnnotation(FreeToken.class) != null) {
             return true;
         }
 
-        // 操作需要的权限
+        // 获取此操作需要的权限
         Token.Type role[] = method.getAnnotation(Authority.class).role();
 
-        // 检查token
 //        String tokenValue = request.getHeader("tokenValue");
+        // 获取cookie
         Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
         Cookie[] cookies = request.getCookies();
         if (null != cookies) {
@@ -54,16 +59,21 @@ public class TokenInterceptor implements HandlerInterceptor {
             }
         }
         Cookie cookie = null;
+
+        // 判断cookie中是否存在"tokenValue"
         if (cookieMap.containsKey("tokenValue")) {
             cookie = cookieMap.get("tokenValue");
-        } else {    //cookie中没有Token
+        } else {
             showInterceptionInfo(response, -1, "请先登录");
             return false;
         }
+
+        // 检查token是否存在于Redis数据库中
         String tokenValue = cookie.getValue();
         if (StringUtils.isNotEmpty(tokenValue) && !tokenValue.equals("null")) {
             Token token = new Token(tokenValue);
             if (tokenManager.checkToken(token)) {
+                // 检查token是否拥有该操作的权限
                 for (int i = 0; i < role.length; i++) {
                     if (token.getType() == role[i]) {
                         return true;
@@ -109,6 +119,11 @@ public class TokenInterceptor implements HandlerInterceptor {
         return false;
     }
 
+    /**
+     * 设置基本的返回参数
+     * @param response
+     * @param msg
+     */
     public void showInterceptionInfo(HttpServletResponse response, String msg) {
         showInterceptionInfo(response, 0, msg);
     }

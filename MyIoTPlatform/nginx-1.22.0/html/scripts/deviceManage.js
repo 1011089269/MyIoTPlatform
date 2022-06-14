@@ -73,6 +73,7 @@ function findDeviceData() {
             deviceId: id, begin:begin, end:end
         },
         success: function (result) {
+            $("#historyBox").text("");
             if(result.status != 1){
                 alertBlur(result.msg);
                 return;
@@ -84,6 +85,7 @@ function findDeviceData() {
             console.log(dataSource);
             var rs = result.data;
             if (dataSource == 1 || period == 1) {
+                $("#historyBox").text("历史数据");
                 for (let i = 0; i < rs.length; i++) {
                     let r = rs[i];
                     if (result.status == 1) {
@@ -95,6 +97,7 @@ function findDeviceData() {
                     }
                 }
             } else {
+                $("#historyBox").text("实时数据");
                 if (result.status == 1) {
                     str = str + "\n" + "id[" + rs.id + "]   time[" + rs.time + "]   value[" + rs.value + "]";
                 } else if (result.status == 2) {
