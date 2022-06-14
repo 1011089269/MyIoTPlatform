@@ -24,15 +24,16 @@ class ClientTest {
     void subscribeAndPublish() throws MqttException,InterruptedException {
         Client client = new Client();
         client.connect();
-        String topic = "test";
+        String publish = "idea";
+        String subscribe = "esp";
         //订阅
-        client.subscribe(topic,0);
+        client.subscribe(subscribe,0);
         //发布
-        String msg = "{deviceId=\"629e328e7def37676cd15d52\", data=\"AAAAA\", dataType=2}";
-        client.publish(topic,msg);
+        String msg = "{\"Cmd\":2}";
+        client.publish(publish,msg);
         Thread.sleep(5000);
         //测试接收
-//        while(true)
-//            Thread.sleep(1000);
+        while(true)
+            Thread.sleep(1000);
     }
 }

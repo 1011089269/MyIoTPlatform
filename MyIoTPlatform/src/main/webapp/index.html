@@ -4,11 +4,24 @@
     <meta charset="UTF-8">
     <title>token demo</title>
     <script src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
-    <script type="text/javascript" src="scripts/util.js"></script>
-    <script type="text/javascript" src="scripts/interceptorManage.js"></script>
 </head>
 <body>
     <h1>测试用户模块</h1>
-    <input type="button" value="前往用户模块" onclick="onGotoUserModule()" />
+    <input type="button" value="前往用户模块" onclick="open()" />
 </body>
+<script>
+    const URL_HEAD = "http://localhost:8080/mqtt/";
+    function open() {
+        const cmd = 1;
+        $.ajax({
+            url: URL_HEAD + "led",
+            //通过type来判断调用哪个方法
+            type: "post",
+            data: {
+                "sign": cmd
+            },
+            dataType: "json"
+        });
+    }
+</script>
 </html>
