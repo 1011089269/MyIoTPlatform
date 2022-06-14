@@ -34,41 +34,21 @@ public class MqttController {
     }
 
     //led
-    @PostMapping("/led")
+    @PostMapping("/cmd")
     @ResponseBody
-    public boolean setLED(String sign) throws MqttException {
-        //1为开，2为关
+    public boolean setCmd(String sign) throws MqttException {
+        //12为LED，34为温湿度，56为继电器，8为手动模式
         String msg = "{\"Cmd\":"+sign+"}";
-        System.out.println("LED:"+sign);
+        System.out.println("Cmd:"+sign);
         client.publish(publish,msg);
         return true;
-    }
-
-    //继电器
-    @PostMapping("/relay")
-    @ResponseBody
-    public void setRelay(String sign) throws MqttException {
-        //3为开，4为关
-        String msg = "{\"Cmd\":"+sign+"}";
-        System.out.println("Relay:"+sign);
-        client.publish(publish,msg);
-    }
-
-    //温湿度
-    @PostMapping("/dht")
-    @ResponseBody
-    public void setDht(String sign) throws MqttException {
-        //5为开，6为关
-        String msg = "{\"Cmd\":"+sign+"}";
-        System.out.println("Dht:"+sign);
-        client.publish(publish,msg);
     }
 
     //自动模式
     @PostMapping("/auto")
     @ResponseBody
     public void setAuto(String sign, String temperature) throws MqttException {
-        //7为开，8为关
+        //7为开
         String msg = "{\"temp\":"+temperature+",\"Cmd\":"+sign+"}";
         System.out.println("auto:"+sign +" temp"+temperature);
         client.publish(publish,msg);
