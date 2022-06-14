@@ -57,11 +57,11 @@ function findDeviceData() {
         dataSourceURL = "findDataById";
     }
 
-    if(begin!= "" && end!= ""){
+    if (begin != "" && end != "") {
         begin = begin + " 00:00:00";
-        end = end+ " 24:00:00";
+        end = end + " 24:00:00";
         dataSourceURL = "findListByPeriod";
-        console.log(begin+end);
+        console.log(begin + end);
         period = 1;
     }
 
@@ -70,14 +70,10 @@ function findDeviceData() {
         type: "post",
         dataType: "json",
         data: {
-            deviceId: id, begin:begin, end:end
+            deviceId: id, begin: begin, end: end
         },
         success: function (result) {
             $("#historyBox").text("");
-            if(result.status != 1){
-                alertBlur(result.msg);
-                return;
-            }
             console.log(result);
             var historyBox = document.getElementById("historyBox");
             var dataSource = document.getElementById("deviceSource").value;
@@ -128,7 +124,7 @@ function deleteDeviceAllHistory() {
             deviceId: id
         },
         success: function (result) {
-            if(result.status == 5) {
+            if (result.status == 5) {
                 document.getElementById("historyBox").innerText = "历史数据";
                 alertBlur("设备 " + id + " 历史数据删除完成!");
             } else {
@@ -148,7 +144,7 @@ function getAllDevice() {
         type: "get",
         dataType: "json",
         success: function (result) {
-            if(result.status != 1){
+            if (result.status != 1) {
                 alertBlur(result.msg);
                 return;
             }
@@ -177,7 +173,7 @@ function onFindDevice() {
         data: {},
         dataType: "json",
         success: function (result) {
-            if(result.status == 1){
+            if (result.status == 1) {
                 clearDeviceList();
                 findDeviceList(result.data);
             } else {

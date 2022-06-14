@@ -20,7 +20,7 @@ public class Client {
 
     //mqtt协议
     private static final String HOST = "tcp://124.221.244.222:1883";//服务器IP:端口
-    private static final String CLIENT_ID = "IDEA_client";//客户端唯一标识
+    private static final String CLIENT_ID = "IDEA_client09";//客户端唯一标识
     private static final String USERNAME = "idea";
     private static final String PASSWORD = "13579";
     private static final String WILL_TOPIC = "esp";

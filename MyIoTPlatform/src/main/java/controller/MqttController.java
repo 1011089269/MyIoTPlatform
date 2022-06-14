@@ -38,7 +38,7 @@ public class MqttController {
     @ResponseBody
     public boolean setCmd(String sign) throws MqttException {
         //12为LED，34为温湿度，56为继电器，8为手动模式
-        String msg = "{\"Cmd\":"+sign+"}";
+        String msg = sign;
         System.out.println("Cmd:"+sign);
         client.publish(publish,msg);
         return true;

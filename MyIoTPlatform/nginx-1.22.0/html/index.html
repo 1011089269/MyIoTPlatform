@@ -38,9 +38,6 @@
         <button onclick="forgetmm()">
             忘记密码<span> Lost Password</span>
         </button>
-        <button onclick="dgdgd()">
-            test<span> Lost Password</span>
-        </button>
         <br>
     </div>
     <script>
@@ -51,10 +48,10 @@
                 type: "post",
                 dataType: "json",
                 data: {
-                    sign: 7 , temperature:28
+                    sign: 7, temperature: 28
                 },
                 success: function (result) {
-                        alertBlur("success")
+                    alertBlur("success")
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alertBlur("设备 " + id + " 历史数据删除失败!");

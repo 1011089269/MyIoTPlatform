@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <title>设备控制</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="scripts/util.js"></script>
+    <script type="text/javascript" src="scripts/userManage.js"></script>
+    <script type="text/javascript" src="scripts/deviceController.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/base.css">
+</head>
+
+<body onload="onLoadUserCenter()">
+    <div class="Flex" id="container">
+        <div class="Row Flex">
+            <div class="Card"
+                style="max-width: 20px; height: 70px; background: url(/images/cloudPlatformIcon.jpeg);    background-size: cover;">
+            </div>
+            <div class="Card">
+                <span class="CardTitle">设备控制 | </span>
+                <span id="lblLoginState">状态获取中......</span>
+                <button id="btnLoginAction" class="RowRight" onclick="onLoginActionClick()">双击退出登录</button>
+            </div>
+        </div>
+        <div class="Row Flex">
+            <div class="FlexColumn" style="min-width: 200px;     margin-right: 20px;">
+                <div class="MenuButton Card" onclick="jump('userCenter.html')">
+                    <span class="CardTitle">用户中心</span>
+                </div>
+                <div class="MenuButton Card" onclick="jump('deviceManage.html')">
+                    <span class="CardTitle">设备管理</span>
+                </div>
+                <div class="MenuButton Card" onclick="jump('deviceViewer.html')">
+                    <span class="CardTitle">数据展示</span>
+                </div>
+                <div class="MenuButton Card" onclick="jump('deviceController.html')">
+                    <span class="CardTitle">设备控制</span>
+                </div>
+            </div>
+
+            <div class="Card">
+                <div class="inputBox Fill" style="margin-right: 20px;">
+                    <select id="setDevice" class="input">
+                        <option value="0" selected="selected">设备1</option>
+                        <option value="1">设备2</option>
+                    </select>
+                </div>
+                <div class="CardTitleInner">传感器数据 | <span id="WSDtime">0000-00-00 00:00:00</span></div>
+                <hr class="hr">
+                <div class="Row FlexColumn">
+                    <div class="Row Flex">
+                        <div class="Flex2Box">温度：<span id="WD">0°C</span></div>
+                        <div class="Flex2Box">湿度：<span id="SD">0%</span></div>
+                    </div>
+                </div>
+                <div class="CardTitleInner">设备控制</div>
+                <hr class="hr">
+                <div class="Row FlexColumn">
+                    <div class="Row Flex Gap">
+                        <div class="Flex4Box">灯 | <span id="LED">⚫ 灯灭</span></div>
+                        <div class="Flex4Box">
+                            <button id="LEDSwitch" class="SwitchButton" onclick="">
+                                开灯
+                            </button>
+                        </div>
+                        <div class="Flex4Box">风扇 | <span id="FAN">⚫ 关闭</span></div>
+                        <div class="Flex4Box">
+                            <button id="FANSwitch" class="SwitchButton" onclick="">
+                                开风扇
+                            </button>
+                        </div>
+                    </div>
+                    <div class="Row Flex Gap">
+                        <div class="Flex4Box">间隔
+                            <input id="JG" oninput="if(value > 9) value = 9; if(value < 1) value = 1" type="number"
+                                class="input" placeholder="请调整上报间隔" />
+                            秒
+                        </div>
+                        <div class="Flex4Box">
+                            <button id="JGSwitch" class="SwitchButton" onclick="changeJG()">
+                                更改间隔
+                            </button>
+                        </div>
+                        <div class="Flex4Box">阈值
+                            <input id="YZ" oninput="if(value > 60) value = 60; if(value < 10) value = 10" type="number"
+                                class="input" placeholder="请调整阈值" />
+                            °C
+                        </div>
+                        <div class="Flex4Box">
+                            <button id="YZSwitch" class="SwitchButton" onclick="changeYZ()">
+                                更改阈值
+                            </button>
+                        </div>
+                    </div>
+                    <div class="Row Flex Gap">
+                        <div class="Flex4Box">风扇模式 | <span id="FANMODE">⚫ 手动模式</span></div>
+                        <div class="Flex4Box">
+                            <button id="FANMODESwitch" class="SwitchButton" onclick="">
+                                切换为自动模式
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Row Flex">
+            <div class="Card">
+                <span class="CardTitle">普通用户权限</span>
+                <button id="btnModifyUserInfo" class="RowRight" onclick="jump('userCenter.html')">修改信息</button>
+            </div>
+            <div class="Card">
+                <span class="CardTitle">管理员权限</span>
+                <button id="btnModifyUserInfo" class="RowRight" onclick="onManageUserClick()">用户管理</button>
+            </div>
+            <div class="Card">
+                <span class="CardTitle">开发者权限</span>
+                <button id="btnUpdateVersion" class="RowRight" onclick="jump('deviceManage.html')">设备管理</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    getAllDevice();
+</script>
+
+<style>
+    #WSDtime {
+        font-weight: normal;
+    }
+
+    .SwitchButton {
+        flex: 1;
+        width: 100%;
+    }
+
+    #setDevice {
+        min-height: 50px;
+        margin-top: 10px;
+        flex: 1;
+    }
+
+    #container {
+        padding: 20px;
+        flex-direction: column;
+    }
+
+    .Flex2Box {
+        flex: 1;
+        align-self: center;
+        margin-bottom: -2vw;
+    }
+
+    .Flex2Box span {
+        font-size: 5vw;
+    }
+
+    .Flex4Box {
+        flex: 1;
+        align-self: center;
+    }
+
+    .Flex4Box input {
+        min-width: 0;
+        width: calc(100% - 135px);
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+</style>
+
+</html>
